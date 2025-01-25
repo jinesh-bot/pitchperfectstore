@@ -1,0 +1,102 @@
+<%- include("./partials/header.ejs") %>
+
+  <div style="background-image: url('/football.jpg');" class="items-center justify-center h-screen bg-cover flex bg-center">
+    <div class="text-center text-white">
+      <div class="bg-black bg-opacity-50 rounded-xl p-6 mb-8">
+        <p class="text-8xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
+        <p class="text-2xl font-semibold mt-4 text-[#DCFCE7]">Admin Portal</p>
+      </div>
+
+      <div class="mt-1 space-y-4 flex flex-col items-center">
+        <form id="loginForm" class="flex flex-col space-y-4 bg-black bg-opacity-50 p-6 rounded-xl max-w-md mx-auto">
+          <input type="text" 
+            name="email" 
+            id="email"
+            placeholder="enter email"
+            class="bg-opacity-50 rounded-md placeholder-gray-300 w-72 px-4 py-2 bg-black text-white" />
+          <div class="relative">
+            <input type="password" 
+              name="password" 
+              id="password"
+              placeholder="Password!"
+              class="bg-opacity-50 rounded-md placeholder-gray-300 w-72 px-4 py-2 bg-black text-white pr-10" />
+            <button 
+              type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white"
+              onclick="togglePassword()"
+            >
+              <i id="toggleIcon" class="fas fa-eye"></i>
+            </button>
+          </div>
+
+          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 rounded-md w-72 hidden"></div>
+
+          <button type="submit" class="mt-6 bg-[#DCFCE7] text-black font-bold text-base px-4 py-2 rounded-full">
+            Log In
+          </button>
+        </form>
+      </div>
+      
+      <p class="mt-4 text-sm text-[#DCFCE7]">ADMIN ACCESS</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.remove('hidden');
+    }
+
+    function hideError() {
+      errorMessage.classList.add('hidden');
+    }
+
+    function togglePassword() {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideError();
+
+      const trimmedEmail = document.getElementById('email').value.trim();
+
+      try {
+        const response = await fetch('/admin/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: trimmedEmail,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.error) {
+          showError(data.error);
+        } else if (data.success) {
+          window.location.href = '/admin/home';
+        }
+      } catch (error) {
+        showError('An error occurred. Please try again.');
+      }
+    });
+  </script>
+
+  <%- include("./partials/footer.ejs") %>

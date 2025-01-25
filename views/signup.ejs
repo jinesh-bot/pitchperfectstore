@@ -1,0 +1,219 @@
+<%- include("./partials/header.ejs") %>
+
+  <div style="background-image: url('football.jpg');" class="items-center justify-center
+    h-screen bg-cover flex bg-center">
+    <div class="text-center text-white">
+      <div class="bg-black bg-opacity-50 rounded-xl p-6 mb-8">
+        <p class="text-8xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
+        <p class="text-2xl font-semibold mt-4 text-[#DCFCE7]">Pitch Perfect Store</p>
+      </div>
+
+      <div class="mt-1 space-y-4 flex flex-col items-center ">
+       
+        
+        <form id="signupForm" action="/signup" method="POST" class="flex flex-col space-y-4 bg-black bg-opacity-50 p-6 rounded-xl max-w-md mx-auto">
+          <input 
+            type="text" 
+            name="name" 
+            id="name"
+            placeholder="Enter your name"
+            value="<%= typeof name !== 'undefined' ? name : '' %>"
+            class="bg-opacity-50 rounded-md placeholder-gray-300 w-72 px-4 py-2 bg-black text-white" 
+          />
+          <input 
+            type="text" 
+            name="email" 
+            id="email"
+            placeholder="Enter email"
+            value="<%= typeof email !== 'undefined' ? email : '' %>"
+            class="bg-opacity-50 rounded-md placeholder-gray-300 w-72 px-4 py-2 bg-black text-white" 
+          />
+          <div class="flex space-x-2">
+            <div class="relative">
+              <input 
+                type="password" 
+                name="password" 
+                id="password"
+                placeholder="Create Password!"
+                class="bg-opacity-50 rounded-md placeholder-gray-300 w-36 px-4 py-2 bg-black text-white pr-10" 
+              
+              />
+              <button 
+                type="button"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white"
+                onclick="togglePassword('password', 'togglePassword1')"
+              >
+                <i id="togglePassword1" class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="relative">
+              <input 
+                type="password" 
+                name="confirmPassword" 
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                class="bg-opacity-50 rounded-md placeholder-gray-300 w-36 px-4 py-2 bg-black text-white pr-10" 
+              
+              />
+              <button 
+                type="button"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white"
+                onclick="togglePassword('confirmPassword', 'togglePassword2')"
+              >
+                <i id="togglePassword2" class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 rounded-md w-72 hidden"></div>
+
+          <button type="submit" class="mt-6 bg-[#DCFCE7] text-black font-bold text-base px-4 py-2 rounded-full">
+            Sign Up
+          </button>
+        </form>
+      </div>
+      
+      <p class="mt-4 text-sm text-[#DCFCE7]">GEAR UP</p>
+    </div>
+  </div>
+
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Regular expressions for validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.remove('hidden');
+    }
+
+    function hideError() {
+      errorMessage.classList.add('hidden');
+    }
+
+    // Real-time email validation
+    email.addEventListener('input', () => {
+      const trimmedEmail = email.value.trim();
+      if (!emailRegex.test(trimmedEmail)) {
+        showError('Invalid email format');
+      } else {
+        hideError();
+      }
+    });
+
+    // Real-time password validation
+    password.addEventListener('input', () => {
+      if (!passwordRegex.test(password.value)) {
+        showError('Password syntax error');
+      } else {
+        hideError();
+      }
+    });
+
+    // Real-time confirm password validation
+    confirmPassword.addEventListener('input', () => {
+      if (password.value !== confirmPassword.value) {
+        showError('Passwords do not match');
+      } else {
+        hideError();
+      }
+    });
+
+    // Real-time name validation
+    name.addEventListener('input', () => {
+      const trimmedName = name.value.trim();
+      if (trimmedName === '') {
+        showError('Name is required');
+      } else if (trimmedName.length < 2) {
+        showError('Name must be at least 2 characters long');
+      } else {
+        hideError();
+      }
+    });
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const trimmedName = name.value.trim();
+      const trimmedEmail = email.value.trim();
+      
+      // Validate name
+      if (trimmedName === '') {
+        showError('Name is required');
+        return;
+      }
+
+      if (trimmedName.length < 2) {
+        showError('Name must be at least 2 characters long');
+        return;
+      }
+
+      // Validate email
+      if (!emailRegex.test(trimmedEmail)) {
+        showError('Invalid email format');
+        return;
+      }
+      
+      if (!passwordRegex.test(password.value)) {
+        showError('Password syntax error');
+        return;
+      }
+      
+      if (password.value !== confirmPassword.value) {
+        showError('Passwords do not match');
+        return;
+      }
+
+      try {
+        const response = await fetch('/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: trimmedName,
+            email: trimmedEmail,
+            password: password.value,
+            confirmPassword: confirmPassword.value
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.error) {
+          showError(data.error);
+        } else {
+          window.location.href = '/login';
+        }
+      } catch (error) {
+        showError('An error occurred during signup');
+      }
+    });
+
+    // Password visibility toggle function
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+  </script>
+
+  <%- include("./partials/footer.ejs") %>

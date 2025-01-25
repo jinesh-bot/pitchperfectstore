@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar and Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">Brand</a>
+            <ul class="flex space-x-4">
+                <li><a href="#" class="hover:text-blue-200">Home</a></li>
+                <li><a href="#" class="hover:text-blue-200">About</a></li>
+                <li><a href="#" class="hover:text-blue-200">Services</a></li>
+                <li><a href="#" class="hover:text-blue-200">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4">
+            <div class="text-2xl font-bold mb-4">Menu</div>
+            <a href="#" class="block p-2 hover:bg-gray-700 rounded">Dashboard</a>
+            <a href="#" class="block p-2 hover:bg-gray-700 rounded">Profile</a>
+            <a href="#" class="block p-2 hover:bg-gray-700 rounded">Settings</a>
+            <a href="/logout" class="block p-2 hover:bg-gray-700 rounded">Logout</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 bg-gray-100">
+            <h1 class="text-3xl font-bold mb-6">Welcome to the Dashboard</h1>
+            <p class="text-gray-700">This is the main content area where you can display your page information.</p>
+        </main>
+    </div>
+</body>
+</html>
