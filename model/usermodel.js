@@ -16,8 +16,11 @@ const PostSchema =new Schema({
     password: {
         type: String,
         required: true
+    },
+    isBlocked: {
+        type: Boolean,
+        default: false
     }
-    
 });
 
 module.exports= mongoose.model('users',PostSchema)

@@ -1,23 +1,27 @@
 const express= require('express')
 const router= express.Router()
+
 const User =require('../model/usermodel.js')
 const bcrypt = require('bcrypt');
 const auth = require('../middlewares/auth.js')
+
+//otp
+const {generateOTP,sendOTP}=require('../utils/OTP.js')
 
 // Email and password validation patterns
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 router.get('/signup',auth.isLogin, (req, res) => {
-  res.render('signup', { error: null });
+  res.render('user/signup', { error: null });
 });
 
 router.post('/signup',auth.isLogin, async (req, res) => {
   try {
     // Trim all inputs when destructuring
     const { 
-      name = '', 
-      email = '', 
+      name, 
+      email, 
       password, 
       confirmPassword 
     } = req.body;
@@ -57,13 +61,17 @@ router.post('/signup',auth.isLogin, async (req, res) => {
       email: trimmedEmail, 
       password: hashedPassword 
     });
+
+    const otp=generateOTP()
+    await sendOTP(trimmedEmail,otp)
+
     res.json({ success: true });
   } catch (error) {
     res.json({ error: 'An error occurred during signup' });
   }
 });
 
-router.get('/login',auth.isLogin, (req, res) => res.render('login'));
+router.get('/login',auth.isLogin, (req, res) => res.render('user/login'));
 router.post('/login', async (req, res) => {
   try {
     const { email = '', password } = req.body;
@@ -83,7 +91,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/home', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
-  res.render('home', { user: req.session.user });
+  res.render('user/home', { user: req.session.user });
 });
 
 router.get('/logout', (req, res) => {

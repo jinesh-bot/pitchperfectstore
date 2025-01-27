@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 ">
+    <!-- Top Heading with Logout -->
+    <div class="fixed top-0 w-full bg-[#1F4529] text-white py-4 px-8 flex justify-between items-center z-50">
+        <div class="text-xl font-semibold">Admin Panel</div>
+        <h1 class="text-4xl font-bold italic absolute left-1/2 transform -translate-x-1/2">Prime Pitch</h1>
+        <a href="/admin/logout" class="bg-white text-[#780C28] px-6 py-2 rounded-full hover:bg-gray-100 font-semibold z-10 transition duration-200">
+            Logout
+        </a>
+    </div>
+
+    <div class="flex pt-20">
+        <!-- Sidebar - Fixed, Full Height -->
+        <aside class="fixed left-0 top-0 h-screen bg-[#508D4E] text-white w-64 overflow-y-auto">
+            <!-- Spacer for header -->
+            <div class="h-20"></div>
+            <!-- Navigation -->
+            <nav class="space-y-4 p-4">
+                <a href="#" onclick="showDashboard()" class="flex items-center space-x-3 text-gray-100 hover:text-[#1F4529] rounded-lg p-2 transition-all duration-200 transform hover:scale-105" id="dashboardLink">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" onclick="showProducts()" class="flex items-center space-x-3 text-gray-100  hover:text-[#1F4529] rounded-lg p-2 transition-all duration-200 transform hover:scale-105" id="productsLink">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="#" onclick="showCategories()" class="flex items-center space-x-3 text-gray-100  hover:text-[#1F4529] rounded-lg p-2 transition-all duration-200 transform hover:scale-105" id="categoriesLink">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </a>
+                <a href="#" onclick="showCustomers()" class="flex items-center space-x-3 text-gray-100  hover:text-[#1F4529] rounded-lg p-2 transition-all duration-200 transform hover:scale-105" id="customersLink">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content - Scrollable -->
+        <div class="flex-1 ml-64">
+            <!-- Header -->
+            <header class="bg-white shadow-sm">
+                <div class="flex items-center justify-between px-8 py-4">
+                    <h2 class="text-2xl font-semibold text-[#780C28]" id="pageTitle">Admin Dashboard</h2>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="p-8 bg-[#CAE0BC] min-h-screen">
+                <!-- Dashboard Content -->
+                <div id="dashboardContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Dashboard Cards -->
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-[#780C28]">Total Products</h3>
+                                <p class="text-2xl font-bold text-[#780C28]">120</p>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-full">
+                                <i class="fas fa-box text-[#780C28]"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-[#780C28]">Total Categories</h3>
+                                <p class="text-2xl font-bold text-[#780C28]">15</p>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-full">
+                                <i class="fas fa-tags text-[#780C28]"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-[#780C28]">Total Customers</h3>
+                                <p class="text-2xl font-bold text-[#780C28]">1,240</p>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-full">
+                                <i class="fas fa-users text-[#780C28]"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-[#780C28]">Total Orders</h3>
+                                <p class="text-2xl font-bold text-[#780C28]">88</p>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-full">
+                                <i class="fas fa-shopping-cart text-[#780C28]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Content (Hidden by default) -->
+                <div id="productsContent" class="hidden">
+                    <!-- Products content will go here -->
+                </div>
+
+                <!-- Categories Content (Hidden by default) -->
+                <div id="categoriesContent" class="hidden">
+                    <!-- Categories content will go here -->
+                </div>
+
+                <!-- Customers Content -->
+                <div id="customersContent" class="hidden">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left py-3 px-4 text-[#780C28]">Customer Name</th>
+                                    <th class="text-left py-3 px-4 text-[#780C28]">Email</th>
+                                    <th class="text-left py-3 px-4 text-[#780C28]">Status</th>
+                                    <th class="text-left py-3 px-4 text-[#780C28]">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach(user => { %>
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-3 px-4"><%= user.name %></td>
+                                        <td class="py-3 px-4"><%= user.email %></td>
+                                        <td class="py-3 px-4">
+                                            <span class="status-badge px-2 py-1 rounded-full text-sm font-semibold <%= user.isBlocked ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' %>">
+                                                <%= user.isBlocked ? 'Blocked' : 'Active' %>
+                                            </span>
+                                        </td>
+                                        <td class="py-3 px-4">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" 
+                                                       class="sr-only peer" 
+                                                       <%= !user.isBlocked ? 'checked' : '' %>
+                                                       data-user-id="<%= user._id %>">
+                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer 
+                                                            peer-checked:after:translate-x-full peer-checked:after:border-white 
+                                                            after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                                                            after:bg-white after:border-gray-300 after:border after:rounded-full 
+                                                            after:h-5 after:w-5 after:transition-all peer-checked:bg-[#780C28]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Get all content sections
+        const sections = {
+            dashboard: document.getElementById('dashboardContent'),
+            products: document.getElementById('productsContent'),
+            categories: document.getElementById('categoriesContent'),
+            customers: document.getElementById('customersContent')
+        };
+
+        // Get all navigation links
+        const links = {
+            dashboard: document.getElementById('dashboardLink'),
+            products: document.getElementById('productsLink'),
+            categories: document.getElementById('categoriesLink'),
+            customers: document.getElementById('customersLink')
+        };
+
+        // Get page title element
+        const pageTitle = document.getElementById('pageTitle');
+
+        // Function to hide all sections
+        function hideAllSections() {
+            Object.values(sections).forEach(section => {
+                section.classList.add('hidden');
+            });
+            // Remove active state from all links
+            Object.values(links).forEach(link => {
+                link.classList.remove('bg-[#1F4529]');
+            });
+        }
+
+        // Show dashboard function
+        function showDashboard() {
+            hideAllSections();
+            sections.dashboard.classList.remove('hidden');
+            links.dashboard.classList.add('bg-[#1F4529]');
+            pageTitle.textContent = 'Admin Dashboard';
+        }
+
+        // Show products function
+        function showProducts() {
+            hideAllSections();
+            sections.products.classList.remove('hidden');
+            links.products.classList.add('bg-[#1F4529]');
+            pageTitle.textContent = 'Products';
+        }
+
+        // Show categories function
+        function showCategories() {
+            hideAllSections();
+            sections.categories.classList.remove('hidden');
+            links.categories.classList.add('bg-[#1F4529]');
+            pageTitle.textContent = 'Categories';
+        }
+
+        // Show customers function
+        function showCustomers() {
+            hideAllSections();
+            sections.customers.classList.remove('hidden');
+            links.customers.classList.add('bg-[#1F4529]');
+            pageTitle.textContent = 'Customers';
+        }
+
+        // Show dashboard by default
+        showDashboard();
+
+        // Add this new JavaScript for toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggles = document.querySelectorAll('input[type="checkbox"]');
+            
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', async function() {
+                    const userId = this.getAttribute('data-user-id');
+                    const row = this.closest('tr');
+                    const statusBadge = row.querySelector('.status-badge');
+                    
+                    try {
+                        const response = await fetch(`/admin/toggle-user-status/${userId}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            if (data.isBlocked) {
+                                statusBadge.textContent = 'Blocked';
+                                statusBadge.classList.remove('bg-green-100', 'text-green-800');
+                                statusBadge.classList.add('bg-red-100', 'text-red-800');
+                            } else {
+                                statusBadge.textContent = 'Active';
+                                statusBadge.classList.remove('bg-red-100', 'text-red-800');
+                                statusBadge.classList.add('bg-green-100', 'text-green-800');
+                            }
+                        } else {
+                            // Revert toggle if request failed
+                            this.checked = !this.checked;
+                            alert('Failed to update user status');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        // Revert toggle if request failed
+                        this.checked = !this.checked;
+                        alert('Failed to update user status');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

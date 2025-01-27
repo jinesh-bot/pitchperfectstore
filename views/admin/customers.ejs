@@ -1,0 +1,109 @@
+<%- include('./partials/adminHeader') %>
+<div class="flex pt-20">
+    <%- include('./partials/adminSidebar') %>
+    
+    <!-- Main Content -->
+    <div class="flex-1 ml-64">
+        <header class="bg-white shadow-sm">
+            <div class="flex items-center justify-between px-8 py-4">
+                <h2 class="text-2xl font-semibold text-[#780C28]">Customers</h2>
+            </div>
+        </header>
+
+        <main class="p-8 bg-[#CAE0BC] min-h-screen">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="text-left py-3 px-4 text-[#780C28]">Customer Name</th>
+                            <th class="text-left py-3 px-4 text-[#780C28]">Email</th>
+                            <th class="text-left py-3 px-4 text-[#780C28]">Status</th>
+                            <th class="text-left py-3 px-4 text-[#780C28]">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (users && users.length > 0) { %>
+                            <% users.forEach(user => { %>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4"><%= user.name %></td>
+                                    <td class="py-3 px-4"><%= user.email %></td>
+                                    <td class="py-3 px-4">
+                                        <span class="status-badge px-2 py-1 rounded-full text-sm font-semibold <%= user.isBlocked ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' %>">
+                                            <%= user.isBlocked ? 'Blocked' : 'Active' %>
+                                        </span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" 
+                                                   class="sr-only peer" 
+                                                   <%= !user.isBlocked ? 'checked' : '' %>
+                                                   data-user-id="<%= user._id %>">
+                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer 
+                                                        peer-checked:after:translate-x-full peer-checked:after:border-white 
+                                                        after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                                                        after:bg-white after:border-gray-300 after:border after:rounded-full 
+                                                        after:h-5 after:w-5 after:transition-all peer-checked:bg-[#780C28]">
+                                            </div>
+                                        </label>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="4" class="py-4 px-4 text-center text-gray-500">No customers found</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggles = document.querySelectorAll('input[type="checkbox"]');
+        
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', async function() {
+                const userId = this.getAttribute('data-user-id');
+                const row = this.closest('tr');
+                const statusBadge = row.querySelector('.status-badge');
+                
+                try {
+                    const response = await fetch(`/admin/toggle-user-status/${userId}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        if (data.isBlocked) {
+                            statusBadge.textContent = 'Blocked';
+                            statusBadge.classList.remove('bg-green-100', 'text-green-800');
+                            statusBadge.classList.add('bg-red-100', 'text-red-800');
+                        } else {
+                            statusBadge.textContent = 'Active';
+                            statusBadge.classList.remove('bg-red-100', 'text-red-800');
+                            statusBadge.classList.add('bg-green-100', 'text-green-800');
+                        }
+                    } else {
+                        // Revert toggle if request failed
+                        this.checked = !this.checked;
+                        alert('Failed to update user status');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    // Revert toggle if request failed
+                    this.checked = !this.checked;
+                    alert('Failed to update user status');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html> 

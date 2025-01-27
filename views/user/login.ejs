@@ -1,25 +1,26 @@
-<%- include("./partials/header.ejs") %>
+<%- include("../partials/header.ejs") %>
 
-  <div style="background-image: url('/football.jpg');" class="items-center justify-center h-screen bg-cover flex bg-center">
+  <div style="background-image: url('football.jpg');" class="items-center justify-center
+    h-screen bg-cover flex bg-center ">
     <div class="text-center text-white">
-      <div class="bg-black bg-opacity-50 rounded-xl p-6 mb-8">
-        <p class="text-8xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
-        <p class="text-2xl font-semibold mt-4 text-[#DCFCE7]">Admin Portal</p>
-      </div>
+      <div class="bg-black bg-opacity-50 rounded-xl p-8 max-w-xl mx-auto">
+        <div class="mb-8">
+          <p class="text-7xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
+          <p class="text-lg font-semibold mt-2 text-[#DCFCE7]">Pitch Perfect Store</p>
+        </div>
 
-      <div class="mt-1 space-y-4 flex flex-col items-center">
-        <form id="loginForm" class="flex flex-col space-y-4 bg-black bg-opacity-50 p-6 rounded-xl max-w-md mx-auto">
+        <form id="loginForm" class="flex flex-col items-center space-y-4">
           <input type="text" 
             name="email" 
             id="email"
-            placeholder="enter email"
-            class="bg-opacity-50 rounded-md placeholder-gray-300 w-72 px-4 py-2 bg-black text-white" />
-          <div class="relative">
+            placeholder="email" 
+            class="bg-black bg-opacity-50 rounded-md placeholder-gray-300 w-96 px-4 py-2.5 text-lg text-white" />
+          <div class="relative w-96">
             <input type="password" 
               name="password" 
               id="password"
-              placeholder="Password!"
-              class="bg-opacity-50 rounded-md placeholder-gray-300 w-72 px-4 py-2 bg-black text-white pr-10" />
+              placeholder="Password!" 
+              class="w-full bg-black bg-opacity-50 rounded-md placeholder-gray-300 px-4 py-2.5 text-lg text-white pr-10" />
             <button 
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white"
@@ -29,18 +30,30 @@
             </button>
           </div>
 
-          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 rounded-md w-72 hidden"></div>
+          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 rounded-md w-96 hidden"></div>
 
-          <button type="submit" class="mt-6 bg-[#DCFCE7] text-black font-bold text-base px-4 py-2 rounded-full">
+          <button type="submit" class="mt-4 bg-[#DCFCE7] text-black font-bold text-base px-8 py-2 rounded-full">
             Log In
           </button>
+
+          <div class="mt-4 flex items-center">
+            <div class="border-t border-gray-300 flex-grow"></div>
+            <span class="mx-4 text-gray-300">or</span>
+            <div class="border-t border-gray-300 flex-grow"></div>
+          </div>
+
+          <a href="/auth/google" class="flex items-center justify-center space-x-2 bg-white text-gray-700 px-8 py-2 rounded-full mt-4 hover:bg-gray-100">
+            <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5" />
+            <span class="font-semibold">Continue with Google</span>
+          </a>
         </form>
       </div>
-      
-      <p class="mt-4 text-sm text-[#DCFCE7]">ADMIN ACCESS</p>
+
+      <p class="mt-4 text-sm text-[#DCFCE7]">TOP GEAR</p>
     </div>
   </div>
 
+ 
   <script>
     const form = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
@@ -75,7 +88,7 @@
       const trimmedEmail = document.getElementById('email').value.trim();
 
       try {
-        const response = await fetch('/admin/login', {
+        const response = await fetch('/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -91,7 +104,7 @@
         if (data.error) {
           showError(data.error);
         } else if (data.success) {
-          window.location.href = '/admin/home';
+          window.location.href = '/home';
         }
       } catch (error) {
         showError('An error occurred. Please try again.');
@@ -99,4 +112,4 @@
     });
   </script>
 
-  <%- include("./partials/footer.ejs") %>
+  <%- include("../partials/footer.ejs") %>

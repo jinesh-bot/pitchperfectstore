@@ -29,6 +29,11 @@ app.use(session({
     saveUninitialized: true
   }));
 
+  //GOOGLE AUTH
+//   app.use(passport.initialize());
+// app.use(passport.session());
+
+
 
 app.use("/admin",adminRoutes)
 app.use("/",userRoutes)
