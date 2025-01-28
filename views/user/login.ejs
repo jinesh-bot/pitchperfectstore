@@ -1,12 +1,11 @@
 <%- include("../partials/header.ejs") %>
 
-  <div style="background-image: url('football.jpg');" class="items-center justify-center
-    h-screen bg-cover flex bg-center ">
-    <div class="text-center text-white">
-      <div class="bg-black bg-opacity-50 rounded-xl p-8 max-w-xl mx-auto">
-        <div class="mb-8">
-          <p class="text-7xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
-          <p class="text-lg font-semibold mt-2 text-[#DCFCE7]">Pitch Perfect Store</p>
+  <div style="background-image: url('football.jpg');" class="items-center justify-center h-screen bg-cover flex bg-center">
+    <div class="text-center text-white w-full px-4 md:px-0">
+      <div class="bg-black bg-opacity-50 rounded-xl p-4 md:p-8 mx-auto max-w-[90%] md:max-w-xl">
+        <div class="mb-4 md:mb-8">
+          <p class="text-4xl md:text-7xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
+          <p class="text-base md:text-lg font-semibold mt-2 text-[#DCFCE7]">Pitch Perfect Store</p>
         </div>
 
         <form id="loginForm" class="flex flex-col items-center space-y-4">
@@ -14,13 +13,14 @@
             name="email" 
             id="email"
             placeholder="email" 
-            class="bg-black bg-opacity-50 rounded-md placeholder-gray-300 w-96 px-4 py-2.5 text-lg text-white" />
-          <div class="relative w-96">
+            class="bg-black bg-opacity-50 rounded-md placeholder-gray-300 w-full md:w-96 px-4 py-2.5 text-base md:text-lg text-white" />
+          
+          <div class="relative w-full md:w-96">
             <input type="password" 
               name="password" 
               id="password"
               placeholder="Password!" 
-              class="w-full bg-black bg-opacity-50 rounded-md placeholder-gray-300 px-4 py-2.5 text-lg text-white pr-10" />
+              class="w-full bg-black bg-opacity-50 rounded-md placeholder-gray-300 px-4 py-2.5 text-base md:text-lg text-white pr-10" />
             <button 
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white"
@@ -30,26 +30,26 @@
             </button>
           </div>
 
-          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 rounded-md w-96 hidden"></div>
+          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 py-2 rounded-md w-full md:w-96 hidden text-sm md:text-base"></div>
 
-          <button type="submit" class="mt-4 bg-[#DCFCE7] text-black font-bold text-base px-8 py-2 rounded-full">
+          <button type="submit" class="mt-4 bg-[#DCFCE7] text-black font-bold text-base px-6 md:px-8 py-2 rounded-full w-full md:w-auto">
             Log In
           </button>
 
-          <div class="mt-4 flex items-center">
+          <div class="mt-4 flex items-center w-full md:w-96">
             <div class="border-t border-gray-300 flex-grow"></div>
-            <span class="mx-4 text-gray-300">or</span>
+            <span class="mx-4 text-gray-300 text-sm md:text-base">or</span>
             <div class="border-t border-gray-300 flex-grow"></div>
           </div>
 
-          <a href="/auth/google" class="flex items-center justify-center space-x-2 bg-white text-gray-700 px-8 py-2 rounded-full mt-4 hover:bg-gray-100">
+          <a href="/auth/google" class="flex items-center justify-center space-x-2 bg-white text-gray-700 px-6 md:px-8 py-2 rounded-full mt-4 hover:bg-gray-100 w-full md:w-auto">
             <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5" />
-            <span class="font-semibold">Continue with Google</span>
+            <span class="font-semibold text-sm md:text-base">Continue with Google</span>
           </a>
         </form>
       </div>
 
-      <p class="mt-4 text-sm text-[#DCFCE7]">TOP GEAR</p>
+      <p class="mt-4 text-xs md:text-sm text-[#DCFCE7]">TOP GEAR</p>
     </div>
   </div>
 

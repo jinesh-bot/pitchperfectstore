@@ -1,12 +1,11 @@
 <%- include("../partials/header.ejs") %>
 
-  <div style="background-image: url('football.jpg');" class="items-center justify-center
-    h-screen bg-cover flex bg-center">
-    <div class="text-center text-white">
-      <div class="bg-black bg-opacity-50 rounded-xl p-8 max-w-xl mx-auto">
-        <div class="mb-8">
-          <p class="text-7xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
-          <p class="text-lg font-semibold mt-2 text-[#DCFCE7]">Pitch Perfect Store</p>
+  <div style="background-image: url('football.jpg');" class="items-center justify-center h-screen bg-cover flex bg-center">
+    <div class="text-center text-white w-full px-4 md:px-0">
+      <div class="bg-black bg-opacity-50 rounded-xl p-4 md:p-8 mx-auto max-w-[90%] md:max-w-xl">
+        <div class="mb-4 md:mb-8">
+          <p class="text-4xl md:text-7xl italic font-sans font-bold text-[#DCFCE7]">Prime Pitch</p>
+          <p class="text-base md:text-lg font-semibold mt-2 text-[#DCFCE7]">Pitch Perfect Store</p>
         </div>
 
         <form id="signupForm" action="/signup" method="POST" class="flex flex-col items-center space-y-4">
@@ -16,7 +15,7 @@
             id="name"
             placeholder="Enter your name"
             value="<%= typeof name !== 'undefined' ? name : '' %>"
-            class="bg-black bg-opacity-50 rounded-md placeholder-gray-300 w-96 px-4 py-2.5 text-lg text-white" 
+            class="bg-black bg-opacity-50 rounded-md placeholder-gray-300 w-full md:w-96 px-4 py-2.5 text-base md:text-lg text-white" 
           />
           <input 
             type="text" 
@@ -24,15 +23,15 @@
             id="email"
             placeholder="Enter email"
             value="<%= typeof email !== 'undefined' ? email : '' %>"
-            class="bg-black bg-opacity-50 rounded-md placeholder-gray-300 w-96 px-4 py-2.5 text-lg text-white" 
+            class="bg-black bg-opacity-50 rounded-md placeholder-gray-300 w-full md:w-96 px-4 py-2.5 text-base md:text-lg text-white" 
           />
-          <div class="relative w-96">
+          <div class="relative w-full md:w-96">
             <input 
               type="password" 
               name="password" 
               id="password"
               placeholder="Create Password!"
-              class="w-full bg-black bg-opacity-50 rounded-md placeholder-gray-300 px-4 py-2.5 text-lg text-white pr-10" 
+              class="w-full bg-black bg-opacity-50 rounded-md placeholder-gray-300 px-4 py-2.5 text-base md:text-lg text-white pr-10" 
             />
             <button 
               type="button"
@@ -42,13 +41,13 @@
               <i id="togglePassword1" class="fas fa-eye"></i>
             </button>
           </div>
-          <div class="relative w-96">
+          <div class="relative w-full md:w-96">
             <input 
               type="password" 
               name="confirmPassword" 
               id="confirmPassword"
               placeholder="Confirm Password"
-              class="w-full bg-black bg-opacity-50 rounded-md placeholder-gray-300 px-4 py-2.5 text-lg text-white pr-10" 
+              class="w-full bg-black bg-opacity-50 rounded-md placeholder-gray-300 px-4 py-2.5 text-base md:text-lg text-white pr-10" 
             />
             <button 
               type="button"
@@ -59,29 +58,28 @@
             </button>
           </div>
           
-          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 rounded-md w-96 hidden"></div>
+          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 rounded-md w-full md:w-96 hidden"></div>
 
-          <button type="submit" class="mt-4 bg-[#DCFCE7] text-black font-bold text-base px-8 py-2 rounded-full">
+          <button type="submit" class="mt-4 bg-[#DCFCE7] text-black font-bold text-base px-6 md:px-8 py-2 rounded-full w-full md:w-auto">
             Sign Up
           </button>
 
-          <div class="mt-4 flex items-center">
+          <div class="mt-4 flex items-center w-full md:w-96">
             <div class="border-t border-gray-300 flex-grow"></div>
-            <span class="mx-4 text-gray-300">or</span>
+            <span class="mx-4 text-gray-300 text-sm md:text-base">or</span>
             <div class="border-t border-gray-300 flex-grow"></div>
           </div>
 
-          <a href="/auth/google" class="flex items-center justify-center space-x-2 bg-white text-gray-700 px-8 py-2 rounded-full mt-4 hover:bg-gray-100">
+          <a href="/auth/google" class="flex items-center justify-center space-x-2 bg-white text-gray-700 px-6 md:px-8 py-2 rounded-full mt-4 hover:bg-gray-100 w-full md:w-auto">
             <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5" />
-            <span class="font-semibold">Sign up with Google</span>
+            <span class="font-semibold text-sm md:text-base">Sign up with Google</span>
           </a>
         </form>
       </div>
       
-      <p class="mt-4 text-sm text-[#DCFCE7]">GEAR UP</p>
+      <p class="mt-4 text-xs md:text-sm text-[#DCFCE7]">GEAR UP</p>
     </div>
   </div>
-
 
   <script>
     const form = document.getElementById('signupForm');
@@ -98,50 +96,82 @@
     function showError(message) {
       errorMessage.textContent = message;
       errorMessage.classList.remove('hidden');
+      errorMessage.classList.add('bg-red-100', 'border', 'border-red-400', 'text-red-700', 'px-4', 'py-3', 'rounded', 'relative');
     }
 
     function hideError() {
       errorMessage.classList.add('hidden');
+      errorMessage.classList.remove('bg-red-100', 'border', 'border-red-400', 'text-red-700', 'px-4', 'py-3', 'rounded', 'relative');
+    }
+
+    // Update the password regex error message function
+    function getPasswordErrorMessage(password) {
+        const errors = [];
+        if (password.length < 8) {
+            errors.push("at least 8 characters");
+        }
+        if (!/(?=.*[a-z])/.test(password)) {
+            errors.push("one lowercase letter");
+        }
+        if (!/(?=.*[A-Z])/.test(password)) {
+            errors.push("one uppercase letter");
+        }
+        if (!/(?=.*\d)/.test(password)) {
+            errors.push("one number");
+        }
+        if (!/(?=.*[@$!%*?&])/.test(password)) {
+            errors.push("one special character (@$!%*?&)");
+        }
+
+        if (errors.length > 0) {
+            return "Password must contain " + errors.join(", ");
+        }
+        return "";
     }
 
     // Real-time email validation
     email.addEventListener('input', () => {
-      const trimmedEmail = email.value.trim();
-      if (!emailRegex.test(trimmedEmail)) {
-        showError('Invalid email format');
-      } else {
-        hideError();
-      }
+        const trimmedEmail = email.value.trim();
+        if (trimmedEmail === '') {
+            showError('Email address is required');
+        } else if (!emailRegex.test(trimmedEmail)) {
+            showError('Please enter a valid email address (example@domain.com)');
+        } else {
+            hideError();
+        }
     });
 
     // Real-time password validation
     password.addEventListener('input', () => {
-      if (!passwordRegex.test(password.value)) {
-        showError('Password syntax error');
-      } else {
-        hideError();
-      }
+        const errorMsg = getPasswordErrorMessage(password.value);
+        if (errorMsg) {
+            showError(errorMsg);
+        } else {
+            hideError();
+        }
     });
 
     // Real-time confirm password validation
     confirmPassword.addEventListener('input', () => {
-      if (password.value !== confirmPassword.value) {
-        showError('Passwords do not match');
-      } else {
-        hideError();
-      }
+        if (password.value !== confirmPassword.value) {
+            showError('The passwords you entered do not match');
+        } else {
+            hideError();
+        }
     });
 
     // Real-time name validation
     name.addEventListener('input', () => {
-      const trimmedName = name.value.trim();
-      if (trimmedName === '') {
-        showError('Name is required');
-      } else if (trimmedName.length < 2) {
-        showError('Name must be at least 2 characters long');
-      } else {
-        hideError();
-      }
+        const trimmedName = name.value.trim();
+        if (trimmedName === '') {
+            showError('Name is required');
+        } else if (trimmedName.length < 2) {
+            showError('Name must be at least 2 characters long');
+        } else if (/\d/.test(trimmedName)) {
+            showError('Name should not contain numbers');
+        } else {
+            hideError();
+        }
     });
 
     // Form submission
@@ -153,28 +183,30 @@
       
       // Validate name
       if (trimmedName === '') {
-        showError('Name is required');
+        showError('Please enter your name');
         return;
       }
 
       if (trimmedName.length < 2) {
-        showError('Name must be at least 2 characters long');
+        showError('Your name must be at least 2 characters long');
         return;
       }
 
       // Validate email
       if (!emailRegex.test(trimmedEmail)) {
-        showError('Invalid email format');
+        showError('Please enter a valid email address (example@domain.com)');
         return;
       }
       
-      if (!passwordRegex.test(password.value)) {
-        showError('Password syntax error');
+      // Validate password
+      const passwordError = getPasswordErrorMessage(password.value);
+      if (passwordError) {
+        showError(passwordError);
         return;
       }
       
       if (password.value !== confirmPassword.value) {
-        showError('Passwords do not match');
+        showError('The passwords you entered do not match. Please try again.');
         return;
       }
 
@@ -195,12 +227,19 @@
         const data = await response.json();
         
         if (data.error) {
-          showError(data.error);
+          if (data.error.includes('Email already registered')) {
+            showError('This email is already registered. Please use a different email or try logging in.');
+          } else {
+            showError(data.error);
+          }
         } else {
-          window.location.href = '/login';
+          // Show OTP modal
+          document.getElementById('otpModal').classList.remove('hidden');
+          document.getElementById('otpModal').classList.add('flex');
+          startTimer();
         }
       } catch (error) {
-        showError('An error occurred during signup');
+        showError('There was a problem connecting to the server. Please try again.');
       }
     });
 
@@ -218,6 +257,172 @@
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
       }
+    }
+  </script>
+
+  <!-- OTP Modal - Made Responsive -->
+  <div id="otpModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 px-4">
+    <div class="bg-white rounded-lg p-4 md:p-6 w-full max-w-xs md:max-w-sm mx-auto">
+        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-2 md:mb-3">Enter OTP</h2>
+        <p class="text-xs md:text-sm text-gray-600 mb-4">Please enter the OTP sent to your email</p>
+        
+        <!-- OTP Input - Responsive spacing -->
+        <div class="flex justify-center space-x-2 md:space-x-3 mb-4">
+            <input type="text" maxlength="1" class="w-8 h-8 md:w-10 md:h-10 text-center text-lg md:text-xl border-2 rounded-lg focus:border-[#780C28] focus:outline-none" />
+            <input type="text" maxlength="1" class="w-8 h-8 md:w-10 md:h-10 text-center text-lg md:text-xl border-2 rounded-lg focus:border-[#780C28] focus:outline-none" />
+            <input type="text" maxlength="1" class="w-8 h-8 md:w-10 md:h-10 text-center text-lg md:text-xl border-2 rounded-lg focus:border-[#780C28] focus:outline-none" />
+            <input type="text" maxlength="1" class="w-8 h-8 md:w-10 md:h-10 text-center text-lg md:text-xl border-2 rounded-lg focus:border-[#780C28] focus:outline-none" />
+        </div>
+
+        <!-- Timer -->
+        <p class="text-center text-gray-600 mb-3 text-xs md:text-sm">
+            Time remaining: <span id="timer" class="font-bold">2:00</span>
+        </p>
+
+        <!-- Error Message -->
+        <p id="otpError" class="text-red-500 text-center mb-3 text-xs md:text-sm hidden"></p>
+
+        <!-- Verify Button -->
+        <button id="verifyOtpBtn" class="w-full bg-[#780C28] text-white py-2 rounded-lg mb-3 hover:bg-[#8B0D2E] transition-colors text-sm">
+            Verify OTP
+        </button>
+
+        <!-- Resend Link -->
+        <p class="text-center text-xs md:text-sm">
+            Didn't receive the code? 
+            <button id="resendOtpBtn" class="text-[#780C28] font-semibold hover:underline" disabled>
+                Resend OTP
+            </button>
+        </p>
+    </div>
+  </div>
+
+  <!-- Add this JavaScript before the closing body tag -->
+  <script>
+    let timeLeft = 120; // 2 minutes in seconds
+    let timerId = null;
+    const otpInputs = document.querySelectorAll('#otpModal input[type="text"]');
+    
+    function startTimer() {
+        clearInterval(timerId); // Clear any existing timer
+        timeLeft = 120; // Reset to 2 minutes
+        document.getElementById('resendOtpBtn').disabled = true;
+        updateTimerDisplay(); // Initial display update
+        
+        timerId = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+
+            if (timeLeft <= 0) {
+                clearInterval(timerId);
+                document.getElementById('resendOtpBtn').disabled = false;
+                // Show expired message
+                document.getElementById('otpError').textContent = 'OTP expired. Please request a new one.';
+                document.getElementById('otpError').classList.remove('hidden');
+                // Clear OTP inputs
+                otpInputs.forEach(input => input.value = '');
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('timer').textContent = 
+            `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // Handle OTP input
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+            if (e.target.value.length === 1) {
+                if (index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            }
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+    });
+
+    // Resend OTP button handler
+    document.getElementById('resendOtpBtn').addEventListener('click', async () => {
+        try {
+            const response = await fetch('/resend-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const data = await response.json();
+            
+            if (data.error) {
+                document.getElementById('otpError').textContent = data.error;
+                document.getElementById('otpError').classList.remove('hidden');
+            } else {
+                // Clear previous error message
+                document.getElementById('otpError').classList.add('hidden');
+                // Clear OTP inputs
+                otpInputs.forEach(input => input.value = '');
+                // Restart timer
+                startTimer();
+            }
+        } catch (error) {
+            document.getElementById('otpError').textContent = 'Error resending OTP';
+            document.getElementById('otpError').classList.remove('hidden');
+        }
+    });
+
+    // Verify OTP button handler
+    document.getElementById('verifyOtpBtn').addEventListener('click', async () => {
+        if (timeLeft <= 0) {
+            document.getElementById('otpError').textContent = 'Your OTP has expired. Please click "Resend OTP" to get a new code.';
+            document.getElementById('otpError').classList.remove('hidden');
+            return;
+        }
+
+        const otp = Array.from(otpInputs).map(input => input.value).join('');
+        
+        if (otp.length !== 4) {
+            document.getElementById('otpError').textContent = 'Please enter all 4 digits of the OTP';
+            document.getElementById('otpError').classList.remove('hidden');
+            return;
+        }
+
+        try {
+            const response = await fetch('/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ otp })
+            });
+
+            const data = await response.json();
+            
+            if (data.error) {
+                document.getElementById('otpError').textContent = data.error;
+                document.getElementById('otpError').classList.remove('hidden');
+            } else {
+                clearInterval(timerId); // Clear timer
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            document.getElementById('otpError').textContent = 'Error verifying OTP';
+            document.getElementById('otpError').classList.remove('hidden');
+        }
+    });
+
+    // Cleanup function when modal is closed (if needed)
+    function cleanupOTPModal() {
+        clearInterval(timerId);
+        otpInputs.forEach(input => input.value = '');
+        document.getElementById('otpError').classList.add('hidden');
     }
   </script>
 

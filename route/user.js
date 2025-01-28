@@ -16,16 +16,9 @@ router.get('/signup',auth.isLogin, (req, res) => {
   res.render('user/signup', { error: null });
 });
 
-router.post('/signup',auth.isLogin, async (req, res) => {
+router.post('/signup', auth.isLogin, async (req, res) => {
   try {
-    // Trim all inputs when destructuring
-    const { 
-      name, 
-      email, 
-      password, 
-      confirmPassword 
-    } = req.body;
-
+    const { name, email, password, confirmPassword } = req.body;
     const trimmedName = name.trim();
     const trimmedEmail = email.trim();
     
@@ -55,18 +48,34 @@ router.post('/signup',auth.isLogin, async (req, res) => {
       return res.json({ error: 'Email already registered' });
     }
 
+    // Generate OTP before creating user
+    const otp = generateOTP();
+    const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes
+
+    // Create user with OTP
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ 
+    const newUser = await User.create({ 
       name: trimmedName,
       email: trimmedEmail, 
-      password: hashedPassword 
+      password: hashedPassword,
+      otp: {
+        code: otp,
+        expiresAt
+      }
     });
 
-    const otp=generateOTP()
-    await sendOTP(trimmedEmail,otp)
+    // Store user ID in session
+    req.session.tempUser = {
+      userId: newUser._id,
+      email: trimmedEmail
+    };
+    
+    // Send OTP
+    await sendOTP(trimmedEmail, otp);
 
     res.json({ success: true });
   } catch (error) {
+    console.error('Signup error:', error);
     res.json({ error: 'An error occurred during signup' });
   }
 });
@@ -96,6 +105,85 @@ router.get('/home', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/login'));
+});
+
+// Verify OTP
+router.post('/verify-otp', async (req, res) => {
+    try {
+        const { otp } = req.body;
+        const userId = req.session.tempUser?.userId;
+
+        if (!userId) {
+            return res.json({ error: 'Session expired. Please try signing up again.' });
+        }
+
+        const user = await User.findById(userId);
+        
+        if (!user) {
+            return res.json({ error: 'User not found. Please try signing up again.' });
+        }
+
+        if (!user.otp.code || !user.otp.expiresAt) {
+            return res.json({ error: 'No OTP found. Please request a new one.' });
+        }
+
+        if (user.otp.expiresAt < new Date()) {
+            return res.json({ error: 'OTP has expired. Please request a new one.' });
+        }
+
+        if (user.otp.code !== otp) {
+            return res.json({ error: 'Invalid OTP. Please try again.' });
+        }
+
+        // Update user verification status
+        user.isVerified = true;
+        user.otp = { code: null, expiresAt: null };
+        await user.save();
+
+        // Clear session
+        delete req.session.tempUser;
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('OTP verification error:', error);
+        res.json({ error: 'Error verifying OTP. Please try again.' });
+    }
+});
+
+// Resend OTP
+router.post('/resend-otp', async (req, res) => {
+    try {
+        const userId = req.session.tempUser?.userId;
+        
+        if (!userId) {
+            return res.json({ error: 'Session expired. Please try signing up again.' });
+        }
+
+        const user = await User.findById(userId);
+        
+        if (!user) {
+            return res.json({ error: 'User not found. Please try signing up again.' });
+        }
+
+        // Generate new OTP
+        const newOTP = generateOTP();
+        const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes
+
+        // Update user's OTP
+        user.otp = {
+            code: newOTP,
+            expiresAt
+        };
+        await user.save();
+
+        // Send new OTP
+        await sendOTP(user.email, newOTP);
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Resend OTP error:', error);
+        res.json({ error: 'Error resending OTP. Please try again.' });
+    }
 });
 
 module.exports= router
