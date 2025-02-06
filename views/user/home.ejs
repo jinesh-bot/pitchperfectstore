@@ -3,38 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar and Sidebar</title>
+    <title>Prime Pitch - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 font-sans">
-    <!-- Navbar -->
-    <nav class="bg-blue-600 text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold">Brand</a>
-            <ul class="flex space-x-4">
-                <li><a href="#" class="hover:text-blue-200">Home</a></li>
-                <li><a href="#" class="hover:text-blue-200">About</a></li>
-                <li><a href="#" class="hover:text-blue-200">Services</a></li>
-                <li><a href="#" class="hover:text-blue-200">Contact</a></li>
-            </ul>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-[#1F4529] text-white fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold italic">Prime Pitch</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="#" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#products" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">Products</a>
+                        <a href="#categories" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">Categories</a>
+                        <a href="#about" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="flex items-center">
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 hover:text-[#DCFCE7] transition-colors">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span class="hidden md:block">Account</span>
+                        </button>
+                        <div class="absolute right-0 w-48 mt-2 py-2 bg-white rounded-md shadow-xl hidden group-hover:block">
+                            <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="/orders" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders</a>
+                            <a href="/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="flex h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-gray-800 text-white flex flex-col p-4 space-y-4">
-            <div class="text-2xl font-bold mb-4">Menu</div>
-            <a href="#" class="block p-2 hover:bg-gray-700 rounded">Dashboard</a>
-            <a href="#" class="block p-2 hover:bg-gray-700 rounded">Profile</a>
-            <a href="#" class="block p-2 hover:bg-gray-700 rounded">Settings</a>
-            <a href="/logout" class="block p-2 hover:bg-gray-700 rounded">Logout</a>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1 p-6 bg-gray-100">
-            <h1 class="text-3xl font-bold mb-6">Welcome to the Dashboard</h1>
-            <p class="text-gray-700">This is the main content area where you can display your page information.</p>
-        </main>
+    <!-- Hero Section -->
+    <div class="pt-16">
+        <div class="relative bg-cover bg-center h-[500px]" style="background-image: url('football.jpg');">
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">Welcome to Prime Pitch</h1>
+                <p class="text-xl text-[#DCFCE7] max-w-3xl">Discover premium football gear and equipment for players of all levels.</p>
+                <a href="#products" class="mt-8 inline-block bg-[#DCFCE7] text-[#1F4529] px-8 py-3 rounded-full font-bold hover:bg-white transition-colors">
+                    Shop Now
+                </a>
+            </div>
+        </div>
     </div>
+
+    <!-- Featured Categories -->
+    <section id="categories" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Categories</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Category Card 1 -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="boots.jpg" alt="Football Boots" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Football Boots</h3>
+                        <p class="text-[#DCFCE7]">Premium footwear</p>
+                    </div>
+                </div>
+                <!-- Add more category cards similarly -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Products</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <img src="product1.jpg" alt="Product" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Nike Mercurial</h3>
+                        <p class="text-gray-600">Professional football boots</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-xl font-bold text-[#1F4529]">$199.99</span>
+                            <button class="bg-[#1F4529] text-white px-4 py-2 rounded-full hover:bg-[#2A603A] transition-colors">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more product cards similarly -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">About Prime Pitch</h2>
+                    <p class="text-gray-600 mb-6">
+                        We are passionate about providing high-quality football equipment to players of all levels. 
+                        Our carefully curated selection ensures that you get the best gear for your game.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-[#1F4529] mr-2"></i>
+                            Premium Quality Products
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-[#1F4529] mr-2"></i>
+                            Expert Customer Service
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-[#1F4529] mr-2"></i>
+                            Fast & Secure Shipping
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative h-96">
+                    <img src="about.jpg" alt="About Us" class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1F4529] text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Prime Pitch</h3>
+                    <p class="text-gray-300">Your one-stop shop for premium football gear.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-[#DCFCE7]">Home</a></li>
+                        <li><a href="#products" class="text-gray-300 hover:text-[#DCFCE7]">Products</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-[#DCFCE7]">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Email: info@primepitch.com</li>
+                        <li>Phone: +1 234 567 890</li>
+                        <li>Address: 123 Sport Street</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-[#DCFCE7]"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-[#DCFCE7]"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-[#DCFCE7]"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-300">
+                <p>&copy; 2024 Prime Pitch. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

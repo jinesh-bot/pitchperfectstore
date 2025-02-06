@@ -8,6 +8,9 @@ const auth = require('../middlewares/auth.js')
 //otp
 const {generateOTP,sendOTP}=require('../utils/OTP.js')
 
+const passport = require('passport');
+require('../utils/googleAuth');
+
 // Email and password validation patterns
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -83,17 +86,33 @@ router.post('/signup', auth.isLogin, async (req, res) => {
 router.get('/login',auth.isLogin, (req, res) => res.render('user/login'));
 router.post('/login', async (req, res) => {
   try {
-    const { email = '', password } = req.body;
-    const trimmedEmail = email.trim();
-    
-    const user = await User.findOne({ email: trimmedEmail });
-    if (user && await bcrypt.compare(password, user.password)) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email.trim() });
+
+    if (!user) {
+      return res.json({ error: 'Invalid email or password' });
+    }
+
+    // Check if user is blocked
+    if (user.isBlocked) {
+      return res.json({ error: 'Your account has been blocked. Please contact support.' });
+    }
+
+    // If user is a Google user
+    if (user.googleId) {
+      return res.json({ error: 'Please use Google Sign In for this account' });
+    }
+
+    // Regular password check
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (passwordMatch) {
       req.session.user = user;
       res.json({ success: true });
     } else {
       res.json({ error: 'Invalid email or password' });
     }
   } catch (error) {
+    console.error('Login error:', error);
     res.json({ error: 'An error occurred during login' });
   }
 });
@@ -185,5 +204,25 @@ router.post('/resend-otp', async (req, res) => {
         res.json({ error: 'Error resending OTP. Please try again.' });
     }
 });
+
+// Google Auth Routes
+router.get('/auth/google',
+    passport.authenticate('google', { 
+        scope: ['profile', 'email'],
+        prompt: 'select_account' 
+    })
+);
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { 
+        failureRedirect: '/login',
+        failureFlash: true
+    }),
+    (req, res) => {
+        // Successful authentication
+        req.session.user = req.user;
+        res.redirect('/home');
+    }
+);
 
 module.exports= router

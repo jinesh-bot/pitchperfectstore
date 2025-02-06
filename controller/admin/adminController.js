@@ -43,6 +43,7 @@ const adminController = {
     getCustomers: async (req, res) => {
         try {
             const users = await User.find({}, 'name email isBlocked');
+            
             console.log('Fetched users:', users);
             res.render('admin/customers', {
                 admin: req.session.admin,

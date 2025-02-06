@@ -1,5 +1,6 @@
 const express = require('express')
-const router= express.Router()
+const router= express.Router();
+exports.router = router;
 const User =require('../model/usermodel.js')
 const bcrypt = require('bcrypt');
 const adminCustomerController = require('../controller/admin/customerController.js')

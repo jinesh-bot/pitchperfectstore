@@ -1,10 +1,8 @@
-const userModel=require("../../model/usermodel.js");
-const { log } =require ("mercedlogger");
-const bcrypt =require ("bcrypt")
+const userModel = require("../../model/usermodel.js");
+const { log } = require("mercedlogger");
+const bcrypt = require("bcrypt");
 
-
-
-
+// Toggle user block status
 const toggleUserStatus = async (req, res) => {
     try {
         const userId = req.params.id;
@@ -30,4 +28,4 @@ const toggleUserStatus = async (req, res) => {
     }
 };
 
-module.exports= {toggleUserStatus }
+module.exports = { toggleUserStatus };

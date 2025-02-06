@@ -11,11 +11,16 @@ const PostSchema =new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     password: {
         type: String,
         required: true
+    },
+    googleId: {
+        type: String,
+        sparse: true
     },
     isBlocked: {
         type: Boolean,
