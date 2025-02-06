@@ -1,4 +1,4 @@
-<%- include("../partials/header.ejs") %>
+<%- include("./partials/loginheader.ejs") %>
 
   <div style="background-image: url('football.jpg');" class="items-center justify-center h-screen bg-cover flex bg-center">
     <div class="text-center text-white w-full px-4 md:px-0">
@@ -30,11 +30,26 @@
             </button>
           </div>
 
-          <div id="errorMessage" class="bg-red-500 bg-opacity-75 text-white px-4 py-2 rounded-md w-full md:w-96 hidden text-sm md:text-base"></div>
+          <!-- Enhanced Error Message with new color scheme -->
+          <div id="errorMessage" class="hidden w-full md:w-96 transform transition-all duration-300">
+            <div class="bg-black bg-opacity-75 border border-red-500 text-red-500 px-4 py-3 rounded-md flex items-center space-x-2">
+              <i class="fas fa-exclamation-circle"></i>
+              <p class="text-sm md:text-base"></p>
+            </div>
+          </div>
 
-          <button type="submit" class="mt-4 bg-[#DCFCE7] text-black font-bold text-base px-6 md:px-8 py-2 rounded-full w-full md:w-auto">
-            Log In
-          </button>
+         
+          <div class="w-full md:w-96 flex flex-col items-center space-y-4">
+            <a href="/forgot-password" 
+               class="text-[#DCFCE7] hover:text-white text-sm transition-colors flex items-center">
+              <i class="fas fa-key mr-2 text-xs"></i>
+              Forgot Password?
+            </a>
+            <button type="submit" 
+                    class="bg-[#DCFCE7] text-black font-bold text-base px-12 py-2.5 rounded-full hover:bg-white transition-colors">
+              Log In
+            </button>
+          </div>
 
           <div class="mt-4 flex items-center w-full md:w-96">
             <div class="border-t border-gray-300 flex-grow"></div>
@@ -60,7 +75,6 @@
     </div>
   </div>
 
- 
   <script>
     const form = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
@@ -68,8 +82,13 @@
     const toggleIcon = document.getElementById('toggleIcon');
 
     function showError(message) {
-      errorMessage.textContent = message;
+      const messageText = errorMessage.querySelector('p');
+      messageText.textContent = message;
       errorMessage.classList.remove('hidden');
+      errorMessage.classList.add('animate-bounce');
+      setTimeout(() => {
+        errorMessage.classList.remove('animate-bounce');
+      }, 1000);
     }
 
     function hideError() {
@@ -119,4 +138,4 @@
     });
   </script>
 
-  <%- include("../partials/footer.ejs") %>
+  <%- include("./partials/loginfooter.ejs") %>

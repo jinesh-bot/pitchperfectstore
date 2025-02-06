@@ -225,4 +225,160 @@ router.get('/auth/google/callback',
     }
 );
 
+// GET route to render forgot password page
+router.get('/forgot-password', (req, res) => {
+    try {
+        res.render('user/forgot-password');
+    } catch (error) {
+        console.error('Error loading forgot password page:', error);
+        res.status(500).send('Error loading forgot password page');
+    }
+});
+
+// POST route to handle forgot password request
+router.post('/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email: email.trim() });
+
+        if (!user) {
+            return res.json({ error: 'No account found with this email' });
+        }
+
+        // Generate OTP
+        const otp = generateOTP();
+        const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
+
+        // Save OTP to user
+        user.otp = {
+            code: otp,
+            expiresAt
+        };
+        await user.save();
+
+        // Send OTP email
+        await sendOTP(email, otp);
+
+        res.json({ 
+            success: true, 
+            message: 'Password reset OTP has been sent to your email' 
+        });
+
+    } catch (error) {
+        console.error('Forgot password error:', error);
+        res.json({ error: 'Error sending reset OTP. Please try again.' });
+    }
+});
+
+// Verify OTP for forgot password
+router.post('/verify-forgot-password-otp', async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        const user = await User.findOne({ email: email.trim() });
+        
+        if (!user) {
+            return res.json({ error: 'User not found. Please try again.' });
+        }
+
+        if (!user.otp.code || !user.otp.expiresAt) {
+            return res.json({ error: 'No OTP found. Please request a new one.' });
+        }
+
+        if (user.otp.expiresAt < new Date()) {
+            return res.json({ error: 'OTP has expired. Please request a new one.' });
+        }
+
+        if (user.otp.code !== otp) {
+            return res.json({ error: 'Invalid OTP. Please try again.' });
+        }
+
+        // Store email in session for password reset
+        req.session.resetEmail = email;
+
+        // Clear OTP after successful verification
+        user.otp = { code: null, expiresAt: null };
+        await user.save();
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('OTP verification error:', error);
+        res.json({ error: 'Error verifying OTP. Please try again.' });
+    }
+});
+
+// Resend OTP for forgot password
+router.post('/resend-forgot-password-otp', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email: email.trim() });
+        
+        if (!user) {
+            return res.json({ error: 'User not found. Please try again.' });
+        }
+
+        // Generate new OTP
+        const newOTP = generateOTP();
+        const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes
+
+        // Update user's OTP
+        user.otp = {
+            code: newOTP,
+            expiresAt
+        };
+        await user.save();
+
+        // Send new OTP
+        await sendOTP(email, newOTP);
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Resend OTP error:', error);
+        res.json({ error: 'Error resending OTP. Please try again.' });
+    }
+});
+
+// Add this route to handle password reset
+router.post('/reset-password', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        
+        // Find user by email
+        const user = await User.findOne({ email: email.trim() });
+        
+        if (!user) {
+            return res.json({ error: 'User not found' });
+        }
+
+        // Validate password format using the existing regex
+        if (!passwordRegex.test(password)) {
+            return res.json({ 
+                error: 'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters' 
+            });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        // Update user's password
+        user.password = hashedPassword;
+        
+        // Clear any existing OTP
+        user.otp = { code: null, expiresAt: null };
+        
+        // Save the changes
+        await user.save();
+
+        res.json({ 
+            success: true, 
+            message: 'Password updated successfully' 
+        });
+
+    } catch (error) {
+        console.error('Password reset error:', error);
+        res.json({ 
+            error: 'An error occurred while resetting your password. Please try again.' 
+        });
+    }
+});
+
 module.exports= router

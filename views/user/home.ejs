@@ -1,49 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Pitch - Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-gray-50">
+<%- include("./partials/mainheader.ejs") %>
     <!-- Navigation Bar -->
     <nav class="bg-[#1F4529] text-white fixed w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo and Brand -->
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold italic">Prime Pitch</span>
-                </div>
+        <div class="flex items-center justify-between h-16">
+            <!-- Left Side -->
+            <div class="flex items-center">
+                <!-- Hamburger Menu Button -->
+                <button id="menuToggle" class="p-2 hover:text-[#DCFCE7] transition-colors">
+                    <i class="fas fa-bars text-xl sm:text-2xl"></i>
+                </button>
+                <!-- Logo -->
+                <span class="text-2xl sm:text-3xl md:text-4xl font-bold italic text-[#DCFCE7] whitespace-nowrap ml-4">Prime Pitch</span>
+            </div>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-4">
-                        <a href="#" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#products" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">Products</a>
-                        <a href="#categories" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">Categories</a>
-                        <a href="#about" class="hover:text-[#DCFCE7] px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                    </div>
+            <!-- Center Search Bar -->
+            <div class="flex-1 min-w-[200px] sm:min-w-[300px] md:min-w-[400px] max-w-2xl mx-4">
+                <div class="relative">
+                    <input type="text" 
+                           placeholder="Search products..." 
+                           class="w-full bg-white bg-opacity-10 text-white placeholder-gray-300 rounded-full py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-[#DCFCE7]">
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
+            </div>
 
-                <!-- User Menu -->
-                <div class="flex items-center">
-                    <div class="relative group">
-                        <button class="flex items-center space-x-2 hover:text-[#DCFCE7] transition-colors">
-                            <i class="fas fa-user-circle text-xl"></i>
-                            <span class="hidden md:block">Account</span>
-                        </button>
-                        <div class="absolute right-0 w-48 mt-2 py-2 bg-white rounded-md shadow-xl hidden group-hover:block">
-                            <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                            <a href="/orders" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders</a>
-                            <a href="/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</a>
-                        </div>
-                    </div>
+            <!-- Right Side -->
+            <div class="flex items-center">
+                <!-- Logout Button -->
+                <a href="/logout" 
+                   class="flex items-center space-x-2 hover:text-[#DCFCE7] transition-colors mr-4">
+                    <i class="fas fa-sign-out-alt text-lg sm:text-xl"></i>
+                    <span class="hidden md:block">Logout</span>
+                </a>
+
+                <!-- Cart Icon with Counter -->
+                <div class="relative mr-2">
+                    <a href="/cart" class="hover:text-[#DCFCE7] transition-colors">
+                        <i class="fas fa-shopping-cart text-xl sm:text-2xl md:text-3xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-[#DCFCE7] text-[#1F4529] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Sliding Menu Overlay -->
+    <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden transition-opacity duration-300"></div>
+
+    <!-- Sliding Menu -->
+    <div id="slideMenu" class="fixed top-0 left-0 h-full w-64 bg-white transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-4">
+            <!-- Close Button -->
+            <button id="closeMenu" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <!-- Categories Section -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Categories</h3>
+                <div class="space-y-2">
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Football Boots</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Jerseys</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Equipment</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Accessories</a>
+                </div>
+            </div>
+
+            <!-- Price Range Section -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Price Range</h3>
+                <div class="space-y-2">
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Under ₹1000</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">₹1000 - ₹5000</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Above ₹5000</a>
+                </div>
+            </div>
+
+            <!-- Sort By Section -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Sort By</h3>
+                <div class="space-y-2">
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Price: Low to High</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Price: High to Low</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Newest First</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Popular</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <div class="pt-16">
@@ -172,5 +216,31 @@
             </div>
         </div>
     </footer>
-</body>
-</html>
+    <%- include("./partials/mainfooter.ejs") %>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const closeMenu = document.getElementById('closeMenu');
+    const slideMenu = document.getElementById('slideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function openMenu() {
+        slideMenu.classList.remove('-translate-x-full');
+        menuOverlay.classList.remove('hidden');
+        setTimeout(() => {
+            menuOverlay.classList.add('opacity-100');
+        }, 0);
+    }
+
+    function closeMenuHandler() {
+        slideMenu.classList.add('-translate-x-full');
+        menuOverlay.classList.remove('opacity-100');
+        setTimeout(() => {
+            menuOverlay.classList.add('hidden');
+        }, 300);
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    closeMenu.addEventListener('click', closeMenuHandler);
+    menuOverlay.addEventListener('click', closeMenuHandler);
+</script>
