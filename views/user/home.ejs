@@ -5,15 +5,15 @@
             <!-- Left Side -->
             <div class="flex items-center">
                 <!-- Hamburger Menu Button -->
-                <button id="menuToggle" class="p-2 hover:text-[#DCFCE7] transition-colors">
+                <button id="menuToggle" class="p-2 hover:text-[#DCFCE7] transition-colors ml-4 sm:ml-6 md:ml-8">
                     <i class="fas fa-bars text-xl sm:text-2xl"></i>
                 </button>
                 <!-- Logo -->
-                <span class="text-2xl sm:text-3xl md:text-4xl font-bold italic text-[#DCFCE7] whitespace-nowrap ml-4">Prime Pitch</span>
+                <span class="text-2xl sm:text-3xl md:text-4xl font-bold italic text-[#DCFCE7] whitespace-nowrap ml-4 sm:ml-6">Prime Pitch</span>
             </div>
 
             <!-- Center Search Bar -->
-            <div class="flex-1 min-w-[200px] sm:min-w-[300px] md:min-w-[400px] max-w-2xl mx-4">
+            <div class="flex-1 min-w-[200px] sm:min-w-[300px] md:min-w-[400px] max-w-2xl mx-4 sm:mx-6 md:mx-8">
                 <div class="relative">
                     <input type="text" 
                            placeholder="Search products..." 
@@ -25,17 +25,17 @@
             </div>
 
             <!-- Right Side -->
-            <div class="flex items-center">
+            <div class="flex items-center mr-4 sm:mr-6 md:mr-8">
                 <!-- Logout Button -->
                 <a href="/logout" 
-                   class="flex items-center space-x-2 hover:text-[#DCFCE7] transition-colors mr-4">
+                   class="flex items-center space-x-2 hover:text-[#DCFCE7] transition-colors mr-6 sm:mr-8 md:mr-10">
                     <i class="fas fa-sign-out-alt text-lg sm:text-xl"></i>
-                    <span class="hidden md:block">Logout</span>
+                    <span class="hidden md:block ml-2">Logout</span>
                 </a>
 
                 <!-- Cart Icon with Counter -->
-                <div class="relative mr-2">
-                    <a href="/cart" class="hover:text-[#DCFCE7] transition-colors">
+                <div class="relative">
+                    <a href="/cart" class="hover:text-[#DCFCE7] transition-colors px-2 sm:px-3">
                         <i class="fas fa-shopping-cart text-xl sm:text-2xl md:text-3xl"></i>
                         <span class="absolute -top-2 -right-2 bg-[#DCFCE7] text-[#1F4529] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
                     </a>
@@ -45,45 +45,45 @@
     </nav>
 
     <!-- Sliding Menu Overlay -->
-    <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden transition-opacity duration-300"></div>
+    <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300"></div>
 
-    <!-- Sliding Menu -->
-    <div id="slideMenu" class="fixed top-0 left-0 h-full w-64 bg-white transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
-        <div class="p-4">
+    <!-- Sliding Menu - Increased width from w-64 to w-72 sm:w-80 -->
+    <div id="slideMenu" class="fixed top-16 left-0 h-[calc(100%-4rem)] w-72 sm:w-80 bg-white transform -translate-x-full transition-transform duration-300 z-40 overflow-y-auto">
+        <div class="p-6">
             <!-- Close Button -->
             <button id="closeMenu" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
                 <i class="fas fa-times text-xl"></i>
             </button>
 
             <!-- Categories Section -->
-            <div class="mb-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Categories</h3>
-                <div class="space-y-2">
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Football Boots</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Jerseys</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Equipment</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Accessories</a>
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+                <div class="space-y-3">
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Football Boots</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Jerseys</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Equipment</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Accessories</a>
                 </div>
             </div>
 
             <!-- Price Range Section -->
-            <div class="mb-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Price Range</h3>
-                <div class="space-y-2">
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Under ₹1000</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">₹1000 - ₹5000</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Above ₹5000</a>
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Price Range</h3>
+                <div class="space-y-3">
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Under ₹1000</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">₹1000 - ₹5000</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Above ₹5000</a>
                 </div>
             </div>
 
             <!-- Sort By Section -->
-            <div class="mb-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Sort By</h3>
-                <div class="space-y-2">
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Price: Low to High</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Price: High to Low</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Newest First</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-2 py-1.5 rounded">Popular</a>
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Sort By</h3>
+                <div class="space-y-3">
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Price: Low to High</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Price: High to Low</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Newest First</a>
+                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Popular</a>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Categories</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Category Card 1 -->
+                <!-- Football Boots Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                     <img src="boots.jpg" alt="Football Boots" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
@@ -117,7 +117,76 @@
                         <p class="text-[#DCFCE7]">Premium footwear</p>
                     </div>
                 </div>
-                <!-- Add more category cards similarly -->
+
+                <!-- Jerseys Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="jerseys.jpg" alt="Jerseys" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Team Jerseys</h3>
+                        <p class="text-[#DCFCE7]">Official team wear</p>
+                    </div>
+                </div>
+
+                <!-- Footballs Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="footballs.jpg" alt="Footballs" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Footballs</h3>
+                        <p class="text-[#DCFCE7]">Professional match balls</p>
+                    </div>
+                </div>
+
+                <!-- Rehab Equipment Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="rehab.jpg" alt="Rehab Equipment" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Rehab Equipment</h3>
+                        <p class="text-[#DCFCE7]">Recovery essentials</p>
+                    </div>
+                </div>
+
+                <!-- Custom Club Jerseys Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="custom-jerseys.jpg" alt="track pants and shorts" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">track pants and shorts</h3>
+                        <p class="text-[#DCFCE7]">Personalized wear</p>
+                    </div>
+                </div>
+
+                <!-- Premium Designer Jerseys Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="designer-jerseys.jpg" alt="Premium Designer Jerseys" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Designer's choice t-shirt</h3>
+                        <p class="text-[#DCFCE7]">Limited edition collection</p>
+                    </div>
+                </div>
+
+                <!-- Training Equipment Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="training.jpg" alt="Training Equipment" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Training Equipment</h3>
+                        <p class="text-[#DCFCE7]">Professional training gear</p>
+                    </div>
+                </div>
+
+                <!-- Accessories Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="accessories.jpg" alt="Accessories" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Accessories</h3>
+                        <p class="text-[#DCFCE7]">Essential add-ons</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
