@@ -1,0 +1,226 @@
+<%- include("./partials/mainheader.ejs") %>
+
+<!-- Product Listing Page -->
+<div class="pt-16 bg-gray-50">
+    <!-- Page Header -->
+    <div class="bg-[#1c4529] text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold"><%= pageTitle %></h1>
+            <p class="mt-2 text-gray-200"><%= pageDescription %></p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Filters Sidebar -->
+            <div class="lg:w-1/4">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <!-- Search -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Search</h3>
+                        <div class="relative">
+                            <input type="text" 
+                                   placeholder="Search products..." 
+                                   class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#1c4529] focus:border-[#1c4529]">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Categories</h3>
+                        <div class="space-y-2">
+                            <a href="/products" class="flex items-center px-2 py-1.5 rounded hover:bg-gray-50 <%= !selectedCategory && !view ? 'text-[#1c4529] font-medium' : 'text-gray-600' %>">
+                                All Products
+                            </a>
+                            <a href="/products?view=new-arrivals" class="flex items-center px-2 py-1.5 rounded hover:bg-gray-50 <%= view === 'new-arrivals' ? 'text-[#1c4529] font-medium' : 'text-gray-600' %>">
+                                New Arrivals
+                            </a>
+                            <% const categories = ['Football Boots', 'Jerseys', 'Footballs', 'Training Gear', 'Accessories']; %>
+                            <% categories.forEach(cat => { %>
+                                <a href="/products?category=<%= cat.toLowerCase().replace(' ', '-') %>" 
+                                   class="flex items-center px-2 py-1.5 rounded hover:bg-gray-50 <%= selectedCategory === cat.toLowerCase().replace(' ', '-') ? 'text-[#1c4529] font-medium' : 'text-gray-600' %>">
+                                    <%= cat %>
+                                </a>
+                            <% }); %>
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Price Range</h3>
+                        <div class="space-y-3">
+                            <input type="range" 
+                                   min="0" 
+                                   max="1000" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#1c4529]">
+                            <div class="flex justify-between">
+                                <span>$0</span>
+                                <span>$1000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brands -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Brands</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-[#1c4529] rounded">
+                                <span class="ml-2">Nike</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-[#1c4529] rounded">
+                                <span class="ml-2">Adidas</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-[#1c4529] rounded">
+                                <span class="ml-2">Puma</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Apply Filters Button -->
+                    <button class="w-full bg-[#1c4529] text-white py-2 rounded-lg hover:bg-[#111827] transition-colors">
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="lg:w-3/4">
+                <!-- Sort and View Options -->
+                <div class="bg-white p-4 rounded-lg shadow-md mb-6 flex flex-wrap justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-600">Sort by:</span>
+                        <select class="border rounded-lg px-3 py-1 focus:ring-2 focus:ring-[#1c4529] focus:border-[#1c4529]">
+                            <option>Latest</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Popular</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-th-large text-[#1c4529]"></i>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-list text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <% if (products.length === 0) { %>
+                        <div class="col-span-full text-center py-8">
+                            <i class="fas fa-box-open text-4xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600">No products found in this category.</p>
+                        </div>
+                    <% } else { %>
+                        <% products.forEach(product => { %>
+                            <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                                <div class="relative">
+                                    <img src="<%= product.image %>" 
+                                         alt="<%= product.name %>" 
+                                         class="w-full h-48 object-cover rounded-t-lg">
+                                    <% if (product.isNewArrival) { %>
+                                        <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">New</span>
+                                    <% } %>
+                                    <button class="absolute top-2 right-2 p-2 rounded-full bg-white text-[#1c4529] hover:text-red-500 transition-colors">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <div class="p-4">
+                                    <div class="text-sm text-gray-500 mb-1"><%= product.category %></div>
+                                    <h3 class="text-lg font-semibold text-gray-900"><%= product.name %></h3>
+                                    <div class="flex items-center mt-1">
+                                        <div class="flex text-yellow-400">
+                                            <% for(let i = 0; i < Math.floor(product.rating); i++) { %>
+                                                <i class="fas fa-star"></i>
+                                            <% } %>
+                                            <% if(product.rating % 1 !== 0) { %>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            <% } %>
+                                        </div>
+                                        <span class="text-gray-500 text-sm ml-2">(<%= product.rating %>)</span>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-between">
+                                        <span class="text-xl font-bold text-[#1c4529]">$<%= product.price %></span>
+                                        <button class="bg-[#1c4529] text-white px-4 py-2 rounded-full hover:bg-[#111827] transition-colors">
+                                            Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-center">
+                    <nav class="flex items-center space-x-2">
+                        <button class="px-3 py-1 rounded-lg border hover:bg-gray-100">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-1 rounded-lg border bg-[#1c4529] text-white">1</button>
+                        <button class="px-3 py-1 rounded-lg border hover:bg-gray-100">2</button>
+                        <button class="px-3 py-1 rounded-lg border hover:bg-gray-100">3</button>
+                        <button class="px-3 py-1 rounded-lg border hover:bg-gray-100">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("./partials/mainfooter.ejs") %>
+
+<script>
+    // Add to wishlist functionality
+    document.querySelectorAll('.fa-heart').forEach(heart => {
+        heart.addEventListener('click', function() {
+            this.classList.toggle('fas');
+            this.classList.toggle('far');
+        });
+    });
+
+    // View toggle functionality
+    const gridView = document.querySelector('.fa-th-large');
+    const listView = document.querySelector('.fa-list');
+    const productsGrid = document.querySelector('.grid');
+
+    gridView.addEventListener('click', () => {
+        gridView.classList.add('text-[#1c4529]');
+        gridView.classList.remove('text-gray-400');
+        listView.classList.add('text-gray-400');
+        listView.classList.remove('text-[#1c4529]');
+        productsGrid.classList.remove('grid-cols-1');
+        productsGrid.classList.add('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3');
+    });
+
+    listView.addEventListener('click', () => {
+        listView.classList.add('text-[#1c4529]');
+        listView.classList.remove('text-gray-400');
+        gridView.classList.add('text-gray-400');
+        gridView.classList.remove('text-[#1c4529]');
+        productsGrid.classList.remove('sm:grid-cols-2', 'lg:grid-cols-3');
+        productsGrid.classList.add('grid-cols-1');
+    });
+
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+
+    // If category parameter exists, check the corresponding checkbox
+    if (category) {
+        const checkbox = document.querySelector(`input[type="checkbox"][data-category="${category}"]`);
+        if (checkbox) {
+            checkbox.checked = true;
+            // Optionally auto-apply the filter
+            document.querySelector('button.bg-[#1c4529]').click();
+        }
+    }
+</script>

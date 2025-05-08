@@ -11,6 +11,12 @@ const {generateOTP,sendOTP}=require('../utils/OTP.js')
 const passport = require('passport');
 require('../utils/googleAuth');
 
+const productController = require('../controller/user/product');
+
+router.get('/',(req,res)=>{
+    res.render('user/landing')
+})
+
 // Email and password validation patterns
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -381,4 +387,7 @@ router.post('/reset-password', async (req, res) => {
     }
 });
 
-module.exports= router
+// Product routes
+router.get('/products', productController.getProducts);
+
+module.exports= router;

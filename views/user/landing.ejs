@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Pitch - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+      <!-- Navigation Bar -->
+      <nav class="bg-[#1F4529] text-white fixed w-full z-50">
+        <div class="flex items-center justify-between h-16">
+            <!-- Left Side -->
+            <div class="flex items-center">
+                <!-- Hamburger Menu Button -->
+                <button id="menuToggle" class="p-2 hover:text-[#DCFCE7] transition-colors ml-4 sm:ml-6 md:ml-8">
+                    <i class="fas fa-bars text-xl sm:text-2xl"></i>
+                </button>
+                <!-- Logo -->
+                <span class="text-2xl sm:text-3xl md:text-4xl font-bold italic text-[#DCFCE7] whitespace-nowrap ml-4 sm:ml-6">Prime Pitch</span>
+            </div>
+
+            <!-- Center Search Bar -->
+            <div class="flex-1 min-w-[200px] sm:min-w-[300px] md:min-w-[400px] max-w-2xl mx-4 sm:mx-6 md:mx-8">
+                <div class="relative">
+                    <input type="text" 
+                           placeholder="Search products..." 
+                           class="w-full bg-white bg-opacity-10 text-white placeholder-gray-300 rounded-full py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-[#DCFCE7]">
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side -->
+            <div class="flex items-center mr-4 sm:mr-6 md:mr-8 space-x-4">
+                <!-- User Profile Icon -->
+                <div class="relative">
+                    <a href="/login" class="flex items-center space-x-2 hover:text-[#DCFCE7] transition-colors">
+                        <div class="w-10 h-10 rounded-full bg-[#DCFCE7] flex items-center justify-center">
+                            <i class="fas fa-user text-[#1F4529] text-lg"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Cart Icon with Counter -->
+                <div class="relative">
+                    <a href="/cart" class="hover:text-[#DCFCE7] transition-colors px-2 sm:px-3">
+                        <i class="fas fa-shopping-cart text-xl sm:text-2xl md:text-3xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-[#DCFCE7] text-[#1F4529] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sliding Menu Overlay -->
+    <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300"></div>
+
+    <!-- Sliding Menu - Reduced thickness -->
+    <div id="slideMenu" class="fixed top-16 left-0 h-[calc(100%-4rem)] w-64 sm:w-72 bg-white transform -translate-x-full transition-transform duration-300 z-40 overflow-y-auto shadow-2xl">
+        <div class="p-4">
+            <!-- Header Section - More compact -->
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-[#1F4529]">Menu</h2>
+                <button id="closeMenu" class="p-1.5 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-lg text-gray-500 hover:text-[#1F4529]"></i>
+                </button>
+            </div>
+
+            <!-- Main Navigation - More compact spacing -->
+            <nav class="space-y-4">
+                <!-- Featured Section -->
+                <div class="space-y-2">
+                    <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                        <span class="flex items-center">
+                            <i class="fas fa-star mr-2.5"></i>
+                            <span class="font-semibold text-sm">All Products</span>
+                        </span>
+                        <i class="fas fa-chevron-right text-xs opacity-50 group-hover:opacity-100"></i>
+                    </a>
+                    <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                        <span class="flex items-center">
+                            <i class="fas fa-fire mr-2.5"></i>
+                            <span class="font-semibold text-sm">New Arrivals</span>
+                        </span>
+                        <i class="fas fa-chevron-right text-xs opacity-50 group-hover:opacity-100"></i>
+                    </a>
+                </div>
+
+                <!-- Categories Section -->
+                <div class="space-y-2">
+                    <h3 class="text-base font-semibold text-gray-900 px-2.5 mb-2">Categories</h3>
+                    <div class="space-y-0.5">
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-shoe-prints mr-2.5 text-sm"></i>
+                                <span class="text-sm">Football Boots</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">24</span>
+                        </a>
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-tshirt mr-2.5 text-sm"></i>
+                                <span class="text-sm">Team Jerseys</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">18</span>
+                        </a>
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-futbol mr-2.5 text-sm"></i>
+                                <span class="text-sm">Football</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">12</span>
+                        </a>
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-hand-holding-medical mr-2.5 text-sm"></i>
+                                <span class="text-sm">Rehab Equipment</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">15</span>
+                        </a>
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-running mr-2.5 text-sm"></i>
+                                <span class="text-sm">Track Pants and Shorts</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">20</span>
+                        </a>
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-tshirt mr-2.5 text-sm"></i>
+                                <span class="text-sm">Designer's Choice T-Shirt</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">16</span>
+                        </a>
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-dumbbell mr-2.5 text-sm"></i>
+                                <span class="text-sm">Workout Supplements</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">10</span>
+                        </a>
+                        <a href="/login" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white group transition-all">
+                            <span class="flex items-center">
+                                <i class="fas fa-shopping-bag mr-2.5 text-sm"></i>
+                                <span class="text-sm">Accessories</span>
+                            </span>
+                            <span class="text-xs text-gray-400 group-hover:text-white">30</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links - Reduced spacing -->
+                <div class="border-t pt-4">
+                    <h3 class="text-base font-semibold text-gray-900 px-2.5 mb-2">Quick Links</h3>
+                    <div class="space-y-0.5">
+                        <a href="/login" class="flex items-center p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white transition-all">
+                            <i class="fas fa-tag mr-2.5"></i>
+                            <span class="text-sm">Best Sellers</span>
+                        </a>
+                        <a href="/login" class="flex items-center p-2.5 rounded-lg hover:bg-[#1F4529] hover:text-white transition-all">
+                            <i class="fas fa-percentage mr-2.5"></i>
+                            <span class="text-sm">Special Offers</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Contact Support - More compact -->
+            <div class="mt-6 p-3 bg-gray-50 rounded-lg">
+                <h4 class="font-semibold text-gray-900 mb-1.5 text-sm">Need Help?</h4>
+                <p class="text-xs text-gray-600 mb-2">Our support team is available 24/7</p>
+                <a href="/login" class="inline-flex items-center text-[#1F4529] hover:text-[#2A603A] text-sm">
+                    <i class="fas fa-headset mr-2"></i>
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="pt-16">
+        <div class="relative bg-cover bg-center h-[500px]" style="background-image: url('football.webp');">
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">Welcome to Prime Pitch</h1>
+                <p class="text-xl text-[#DCFCE7] max-w-3xl">Discover premium football gear and equipment for players of all levels.</p>
+                <a href="/login" class="mt-8 inline-block bg-[#DCFCE7] text-[#1F4529] px-8 py-3 rounded-full font-bold hover:bg-white transition-colors">
+                    Shop Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Special Offers Banner -->
+    <div class="bg-[#1F4529] text-white py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center space-x-2">
+                <i class="fas fa-tags text-[#DCFCE7] text-xl"></i>
+                <p class="text-lg">Get 20% off on your first purchase! Use code: <span class="font-bold text-[#DCFCE7]">WELCOME20</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links Section -->
+    <section class="py-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Free Delivery -->
+                <div class="flex items-center p-4 bg-white rounded-lg shadow-sm">
+                    <i class="fas fa-truck text-2xl text-[#1F4529] mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold">Free Delivery</h3>
+                        <p class="text-sm text-gray-600">On orders above $50</p>
+                    </div>
+                </div>
+                <!-- Easy Returns -->
+                <div class="flex items-center p-4 bg-white rounded-lg shadow-sm">
+                    <i class="fas fa-undo text-2xl text-[#1F4529] mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold">Easy Returns</h3>
+                        <p class="text-sm text-gray-600">30-day return policy</p>
+                    </div>
+                </div>
+                <!-- Secure Payment -->
+                <div class="flex items-center p-4 bg-white rounded-lg shadow-sm">
+                    <i class="fas fa-shield-alt text-2xl text-[#1F4529] mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold">Secure Payment</h3>
+                        <p class="text-sm text-gray-600">100% secure checkout</p>
+                    </div>
+                </div>
+                <!-- 24/7 Support -->
+                <div class="flex items-center p-4 bg-white rounded-lg shadow-sm">
+                    <i class="fas fa-headset text-2xl text-[#1F4529] mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold">24/7 Support</h3>
+                        <p class="text-sm text-gray-600">Dedicated support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Banner -->
+    <section class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-3xl font-bold mb-2">New Season Collection</h2>
+                    <p class="text-gray-300">Discover our latest arrivals for the new season</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <p class="text-sm mb-2">Limited Time Offer</p>
+                    <div class="grid grid-flow-col gap-2 text-center auto-cols-max">
+                        <div class="flex flex-col p-2 bg-[#1F4529] rounded-box text-[#DCFCE7]">
+                            <span class="countdown font-mono text-2xl" id="days">00</span>
+                            days
+                        </div>
+                        <div class="flex flex-col p-2 bg-[#1F4529] rounded-box text-[#DCFCE7]">
+                            <span class="countdown font-mono text-2xl" id="hours">00</span>
+                            hours
+                        </div>
+                        <div class="flex flex-col p-2 bg-[#1F4529] rounded-box text-[#DCFCE7]">
+                            <span class="countdown font-mono text-2xl" id="minutes">00</span>
+                            min
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section id="categories" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Categories</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Football Boots Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/nike boots.webp" alt="Football Boots" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Football Boots</h3>
+                        <p class="text-[#DCFCE7]">Premium footwear</p>
+                    </div>
+                </div>
+
+                <!-- Jerseys Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/liverpool-jersey.webp" alt="Jerseys" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Team Jerseys</h3>
+                        <p class="text-[#DCFCE7]">Official team wear</p>
+                    </div>
+                </div>
+
+                <!-- Footballs Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/football-nike.webp" alt="Footballs" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Footballs</h3>
+                        <p class="text-[#DCFCE7]">Professional match balls</p>
+                    </div>
+                </div>
+
+                <!-- Rehab Equipment Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/rehab.webp" alt="Rehab Equipment" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Rehab Equipment</h3>
+                        <p class="text-[#DCFCE7]">Recovery essentials</p>
+                    </div>
+                </div>
+
+                <!-- track pants and shorts Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/trackpant.webp" alt="track pants and shorts" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">track pants and shorts</h3>
+                        <p class="text-[#DCFCE7]">Personalized wear</p>
+                    </div>
+                </div>
+
+                <!-- Premium Designer Jerseys Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/t-shirt.webp" alt="Premium Designer Jerseys" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Designer's choice t-shirt</h3>
+                        <p class="text-[#DCFCE7]">Limited edition collection</p>
+                    </div>
+                </div>
+
+                <!-- workout Suppliments -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/multivitamin.webp" alt="Workout Suppliments" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Suppliments</h3>
+                        <p class="text-[#DCFCE7]">better performance</p>
+                    </div>
+                </div>
+
+                <!-- Accessories Card -->
+                <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/acceseries.webp" alt="Accessories" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="text-xl font-bold text-white">Accessories</h3>
+                        <p class="text-[#DCFCE7]">Essential add-ons</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Products</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/nike boots.webp" alt="Product" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Nike Mercurial</h3>
+                        <p class="text-gray-600">Professional football boots</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-xl font-bold text-[#1F4529]">$250.99</span>
+                            <button onclick="window.location.href='/login'" class="bg-[#1F4529] text-white px-4 py-2 rounded-full hover:bg-[#2A603A] transition-colors">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more product cards similarly -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer" onclick="window.location.href='/login'">
+                    <img src="/products/t-shirt.webp" alt="Product" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Barcelona T-shirt</h3>
+                        <p class="text-gray-600">Designer T-Shirt</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-xl font-bold text-[#1F4529]">$100.99</span>
+                            <button onclick="window.location.href='/login'" class="bg-[#1F4529] text-white px-4 py-2 rounded-full hover:bg-[#2A603A] transition-colors">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section - Updated Logo and Background -->
+    <section id="about" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">About Prime Pitch</h2>
+                    <p class="text-gray-600 mb-6">
+                        We are passionate about providing high-quality football equipment to players of all levels. 
+                        Our carefully curated selection ensures that you get the best gear for your game.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-[#1F4529] mr-2"></i>
+                            Premium Quality Products
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-[#1F4529] mr-2"></i>
+                            Expert Customer Service
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-[#1F4529] mr-2"></i>
+                            Fast & Secure Shipping
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative h-96">
+                    <div class="absolute inset-0 bg-[url('/football.webp')] bg-cover bg-center opacity-100 rounded-lg"></div>
+                    <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div> <!-- Dark overlay for better logo visibility -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <img src="/logo.png" alt="About Us" class="w-full h-auto max-w-[90%] object-contain z-10 drop-shadow-2xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+   
+    <%- include("./partials/mainfooter.ejs") %>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const closeMenu = document.getElementById('closeMenu');
+    const slideMenu = document.getElementById('slideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function openMenu() {
+        document.body.style.overflow = 'hidden';
+        menuOverlay.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            menuOverlay.classList.add('opacity-100');
+            slideMenu.classList.remove('-translate-x-full');
+        });
+    }
+
+    function closeMenuHandler() {
+        document.body.style.overflow = '';
+        slideMenu.classList.add('-translate-x-full');
+        menuOverlay.classList.remove('opacity-100');
+        setTimeout(() => {
+            menuOverlay.classList.add('hidden');
+        }, 300);
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    closeMenu.addEventListener('click', closeMenuHandler);
+    menuOverlay.addEventListener('click', closeMenuHandler);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !slideMenu.classList.contains('-translate-x-full')) {
+            closeMenuHandler();
+        }
+    });
+
+    // Countdown Timer
+    function updateCountdown() {
+        const endDate = new Date('2024-04-30T00:00:00').getTime();
+        const now = new Date().getTime();
+        const timeLeft = endDate - now;
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 60000); // Update every minute
+
+    // Add click handlers for category cards
+    document.querySelectorAll('.group.relative.rounded-lg').forEach(card => {
+        card.addEventListener('click', () => {
+            window.location.href = '/login';
+        });
+    });
+</script>
+
+</body>
+</html>
+

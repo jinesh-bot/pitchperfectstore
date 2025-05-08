@@ -1,104 +1,77 @@
 <%- include("./partials/mainheader.ejs") %>
-    <!-- Navigation Bar -->
-    <nav class="bg-[#1F4529] text-white fixed w-full z-50">
-        <div class="flex items-center justify-between h-16">
-            <!-- Left Side -->
-            <div class="flex items-center">
-                <!-- Hamburger Menu Button -->
-                <button id="menuToggle" class="p-2 hover:text-[#DCFCE7] transition-colors ml-4 sm:ml-6 md:ml-8">
-                    <i class="fas fa-bars text-xl sm:text-2xl"></i>
-                </button>
-                <!-- Logo -->
-                <span class="text-2xl sm:text-3xl md:text-4xl font-bold italic text-[#DCFCE7] whitespace-nowrap ml-4 sm:ml-6">Prime Pitch</span>
-            </div>
-
-            <!-- Center Search Bar -->
-            <div class="flex-1 min-w-[200px] sm:min-w-[300px] md:min-w-[400px] max-w-2xl mx-4 sm:mx-6 md:mx-8">
-                <div class="relative">
-                    <input type="text" 
-                           placeholder="Search products..." 
-                           class="w-full bg-white bg-opacity-10 text-white placeholder-gray-300 rounded-full py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-[#DCFCE7]">
-                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Right Side -->
-            <div class="flex items-center mr-4 sm:mr-6 md:mr-8">
-                <!-- Logout Button -->
-                <a href="/logout" 
-                   class="flex items-center space-x-2 hover:text-[#DCFCE7] transition-colors mr-6 sm:mr-8 md:mr-10">
-                    <i class="fas fa-sign-out-alt text-lg sm:text-xl"></i>
-                    <span class="hidden md:block ml-2">Logout</span>
-                </a>
-
-                <!-- Cart Icon with Counter -->
-                <div class="relative">
-                    <a href="/cart" class="hover:text-[#DCFCE7] transition-colors px-2 sm:px-3">
-                        <i class="fas fa-shopping-cart text-xl sm:text-2xl md:text-3xl"></i>
-                        <span class="absolute -top-2 -right-2 bg-[#DCFCE7] text-[#1F4529] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Sliding Menu Overlay -->
-    <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300"></div>
-
-    <!-- Sliding Menu - Increased width from w-64 to w-72 sm:w-80 -->
-    <div id="slideMenu" class="fixed top-16 left-0 h-[calc(100%-4rem)] w-72 sm:w-80 bg-white transform -translate-x-full transition-transform duration-300 z-40 overflow-y-auto">
-        <div class="p-6">
-            <!-- Close Button -->
-            <button id="closeMenu" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-
-            <!-- Categories Section -->
-            <div class="mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
-                <div class="space-y-3">
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Football Boots</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Jerseys</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Equipment</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Accessories</a>
-                </div>
-            </div>
-
-            <!-- Price Range Section -->
-            <div class="mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Price Range</h3>
-                <div class="space-y-3">
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Under ₹1000</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">₹1000 - ₹5000</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Above ₹5000</a>
-                </div>
-            </div>
-
-            <!-- Sort By Section -->
-            <div class="mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Sort By</h3>
-                <div class="space-y-3">
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Price: Low to High</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Price: High to Low</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Newest First</a>
-                    <a href="#" class="block text-gray-600 hover:text-[#1F4529] hover:bg-gray-50 px-3 py-2 rounded">Popular</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
+    <!-- Hero Section with Auto-rotating Banners -->
     <div class="pt-16">
-        <div class="relative bg-cover bg-center h-[500px]" style="background-image: url('football.jpg');">
-            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">Welcome to Prime Pitch</h1>
-                <p class="text-xl text-[#DCFCE7] max-w-3xl">Discover premium football gear and equipment for players of all levels.</p>
-                <a href="#products" class="mt-8 inline-block bg-[#DCFCE7] text-[#1F4529] px-8 py-3 rounded-full font-bold hover:bg-white transition-colors">
-                    Shop Now
-                </a>
+        <div class="relative h-[500px] overflow-hidden">
+            <!-- Banner Slides -->
+            <div class="banner-slider relative h-full">
+                <!-- Slide 1 -->
+                <div class="banner-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+                    <div class="relative h-full bg-cover bg-center" style="background-image: url('realmadrid.webp');">
+                        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 transform translate-y-4 opacity-0 transition-all duration-1000 slide-content">
+                                champions league season
+                            </h1>
+                            <p class="text-xl text-[#DCFCE7] max-w-3xl transform translate-y-4 opacity-0 transition-all duration-1000 delay-300 slide-content">
+                                Get ready for the champions league season with our premium football gear.
+                            </p>
+                            <a href="#products" class="mt-8 inline-block bg-[#DCFCE7] text-[#1F4529] px-8 py-3 rounded-full font-bold hover:bg-white transition-colors transform translate-y-4 opacity-0 transition-all duration-1000 delay-500 slide-content">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="banner-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+                    <div class="relative h-full bg-cover bg-center" style="background-image: url('AcMilan.jpg');">
+                        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 transform translate-y-4 opacity-0 transition-all duration-1000 slide-content">
+                                Best seller of this season
+                            </h1>
+                            <p class="text-xl text-[#DCFCE7] max-w-3xl transform translate-y-4 opacity-0 transition-all duration-1000 delay-300 slide-content">
+                                Ac milan home kit.
+                            </p>
+                            <a href="#products" class="mt-8 inline-block bg-[#DCFCE7] text-[#1F4529] px-8 py-3 rounded-full font-bold hover:bg-white transition-colors transform translate-y-4 opacity-0 transition-all duration-1000 delay-500 slide-content">
+                                View Product
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="banner-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+                    <div class="relative h-full bg-cover bg-center" style="background-image: url('arsenal.webp');">
+                        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 transform translate-y-4 opacity-0 transition-all duration-1000 slide-content">
+                                Official Team Jerseys
+                            </h1>
+                            <p class="text-xl text-[#DCFCE7] max-w-3xl transform translate-y-4 opacity-0 transition-all duration-1000 delay-300 slide-content">
+                                Show your team pride with authentic jerseys and merchandise.
+                            </p>
+                            <a href="#products" class="mt-8 inline-block bg-[#DCFCE7] text-[#1F4529] px-8 py-3 rounded-full font-bold hover:bg-white transition-colors transform translate-y-4 opacity-0 transition-all duration-1000 delay-500 slide-content">
+                                Browse Jerseys
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Dots -->
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    <button class="banner-dot w-3 h-3 rounded-full bg-white opacity-50 transition-opacity duration-300"></button>
+                    <button class="banner-dot w-3 h-3 rounded-full bg-white opacity-50 transition-opacity duration-300"></button>
+                    <button class="banner-dot w-3 h-3 rounded-full bg-white opacity-50 transition-opacity duration-300"></button>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 transition-all p-2 rounded-full text-white" onclick="prevSlide()">
+                    <i class="fas fa-chevron-left text-2xl"></i>
+                </button>
+                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 transition-all p-2 rounded-full text-white" onclick="nextSlide()">
+                    <i class="fas fa-chevron-right text-2xl"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -110,100 +83,116 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Football Boots Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="boots.jpg" alt="Football Boots" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">Football Boots</h3>
-                        <p class="text-[#DCFCE7]">Premium footwear</p>
-                    </div>
+                    <a href="/products?category=football-boots" class="block">
+                        <img src="/products/nike boots.webp" alt="Football Boots" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Football Boots</h3>
+                            <p class="text-[#DCFCE7]">Premium footwear</p>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Jerseys Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="jerseys.jpg" alt="Jerseys" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">Team Jerseys</h3>
-                        <p class="text-[#DCFCE7]">Official team wear</p>
-                    </div>
+                    <a href="/products?category=jerseys" class="block">
+                        <img src="/products/liverpool-jersey.webp" alt="Jerseys" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Team Jerseys</h3>
+                            <p class="text-[#DCFCE7]">Official team wear</p>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Footballs Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="footballs.jpg" alt="Footballs" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">Footballs</h3>
-                        <p class="text-[#DCFCE7]">Professional match balls</p>
-                    </div>
+                    <a href="/products?category=footballs" class="block">
+                        <img src="/products/football-nike.webp" alt="Footballs" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Footballs</h3>
+                            <p class="text-[#DCFCE7]">Professional match balls</p>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Rehab Equipment Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="rehab.jpg" alt="Rehab Equipment" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">Rehab Equipment</h3>
-                        <p class="text-[#DCFCE7]">Recovery essentials</p>
-                    </div>
+                    <a href="/products?category=rehab-equipment" class="block">
+                        <img src="/products/rehab.webp" alt="Rehab Equipment" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Rehab Equipment</h3>
+                            <p class="text-[#DCFCE7]">Recovery essentials</p>
+                        </div>
+                    </a>
                 </div>
 
-                <!-- Custom Club Jerseys Card -->
+                <!-- Track Pants and Shorts Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="custom-jerseys.jpg" alt="track pants and shorts" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">track pants and shorts</h3>
-                        <p class="text-[#DCFCE7]">Personalized wear</p>
-                    </div>
+                    <a href="/products?category=track-pants" class="block">
+                        <img src="/products/trackpant.webp" alt="track pants and shorts" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Track Pants and Shorts</h3>
+                            <p class="text-[#DCFCE7]">Personalized wear</p>
+                        </div>
+                    </a>
                 </div>
 
-                <!-- Premium Designer Jerseys Card -->
+                <!-- Designer T-shirts Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="designer-jerseys.jpg" alt="Premium Designer Jerseys" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">Designer's choice t-shirt</h3>
-                        <p class="text-[#DCFCE7]">Limited edition collection</p>
-                    </div>
+                    <a href="/products?category=designer-tshirts" class="block">
+                        <img src="/products/t-shirt.webp" alt="Designer T-shirts" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Designer's Choice T-shirt</h3>
+                            <p class="text-[#DCFCE7]">Limited edition collection</p>
+                        </div>
+                    </a>
                 </div>
 
-                <!-- Training Equipment Card -->
+                <!-- Supplements Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="training.jpg" alt="Training Equipment" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">Training Equipment</h3>
-                        <p class="text-[#DCFCE7]">Professional training gear</p>
-                    </div>
+                    <a href="/products?category=supplements" class="block">
+                        <img src="/products/multivitamin.webp" alt="Supplements" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Supplements</h3>
+                            <p class="text-[#DCFCE7]">Better performance</p>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Accessories Card -->
                 <div class="group relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src="accessories.jpg" alt="Accessories" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="text-xl font-bold text-white">Accessories</h3>
-                        <p class="text-[#DCFCE7]">Essential add-ons</p>
-                    </div>
+                    <a href="/products?category=accessories" class="block">
+                        <img src="/products/acceseries.webp" alt="Accessories" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <h3 class="text-xl font-bold text-white">Accessories</h3>
+                            <p class="text-[#DCFCE7]">Essential add-ons</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Products -->
+    <!-- New Arrivals -->
     <section id="products" class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Products</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">New Arrivals</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Product Card 1 -->
                 <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <img src="product1.jpg" alt="Product" class="w-full h-48 object-cover rounded-t-lg">
+                    <img src="/products/nike boots.webp" alt="Product" class="w-full h-48 object-cover rounded-t-lg">
                     <div class="p-4">
                         <h3 class="text-lg font-semibold text-gray-900">Nike Mercurial</h3>
                         <p class="text-gray-600">Professional football boots</p>
                         <div class="mt-4 flex items-center justify-between">
-                            <span class="text-xl font-bold text-[#1F4529]">$199.99</span>
+                            <span class="text-xl font-bold text-[#1F4529]">$250.99</span>
                             <button class="bg-[#1F4529] text-white px-4 py-2 rounded-full hover:bg-[#2A603A] transition-colors">
                                 Add to Cart
                             </button>
@@ -211,11 +200,24 @@
                     </div>
                 </div>
                 <!-- Add more product cards similarly -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <img src="/products/t-shirt.webp" alt="Product" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Barcelona T-shirt</h3>
+                        <p class="text-gray-600">Designer T-Shirt</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-xl font-bold text-[#1F4529]">$100.99</span>
+                            <button class="bg-[#1F4529] text-white px-4 py-2 rounded-full hover:bg-[#2A603A] transition-colors">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section - Updated Logo and Background -->
     <section id="about" class="py-12 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -241,75 +243,95 @@
                     </ul>
                 </div>
                 <div class="relative h-96">
-                    <img src="about.jpg" alt="About Us" class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg">
+                    <div class="absolute inset-0 bg-[url('/football.webp')] bg-cover bg-center opacity-100 rounded-lg"></div>
+                    <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div> <!-- Dark overlay for better logo visibility -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <img src="/logo.png" alt="About Us" class="w-full h-auto max-w-[90%] object-contain z-10 drop-shadow-2xl">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#1F4529] text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Prime Pitch</h3>
-                    <p class="text-gray-300">Your one-stop shop for premium football gear.</p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-[#DCFCE7]">Home</a></li>
-                        <li><a href="#products" class="text-gray-300 hover:text-[#DCFCE7]">Products</a></li>
-                        <li><a href="#about" class="text-gray-300 hover:text-[#DCFCE7]">About Us</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>Email: info@primepitch.com</li>
-                        <li>Phone: +1 234 567 890</li>
-                        <li>Address: 123 Sport Street</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-[#DCFCE7]"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-[#DCFCE7]"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-[#DCFCE7]"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-300">
-                <p>&copy; 2024 Prime Pitch. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-    <%- include("./partials/mainfooter.ejs") %>
+    <!-- Add this script before including the footer -->
+    <script>
+        // Banner Slider Functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        const dots = document.querySelectorAll('.banner-dot');
+        let slideInterval;
 
-<script>
-    const menuToggle = document.getElementById('menuToggle');
-    const closeMenu = document.getElementById('closeMenu');
-    const slideMenu = document.getElementById('slideMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.style.opacity = '0';
+                slide.querySelectorAll('.slide-content').forEach(content => {
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(20px)';
+                });
+            });
+            
+            // Remove active state from all dots
+            dots.forEach(dot => dot.style.opacity = '0.5');
 
-    function openMenu() {
-        slideMenu.classList.remove('-translate-x-full');
-        menuOverlay.classList.remove('hidden');
-        setTimeout(() => {
-            menuOverlay.classList.add('opacity-100');
-        }, 0);
-    }
+            // Show current slide
+            slides[index].style.opacity = '1';
+            
+            // Animate content
+            setTimeout(() => {
+                slides[index].querySelectorAll('.slide-content').forEach((content, i) => {
+                    setTimeout(() => {
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }, i * 200);
+                });
+            }, 300);
 
-    function closeMenuHandler() {
-        slideMenu.classList.add('-translate-x-full');
-        menuOverlay.classList.remove('opacity-100');
-        setTimeout(() => {
-            menuOverlay.classList.add('hidden');
-        }, 300);
-    }
+            // Highlight current dot
+            dots[index].style.opacity = '1';
+        }
 
-    menuToggle.addEventListener('click', openMenu);
-    closeMenu.addEventListener('click', closeMenuHandler);
-    menuOverlay.addEventListener('click', closeMenuHandler);
-</script>
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+            resetInterval();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+            resetInterval();
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000); // Changed to 5 seconds
+        }
+
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            if (slides.length > 0) {
+                showSlide(0);
+                slideInterval = setInterval(nextSlide, 5000);
+
+                // Add click handlers to dots
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        currentSlide = index;
+                        showSlide(currentSlide);
+                        resetInterval();
+                    });
+                });
+
+                // Make prev/next functions globally available
+                window.prevSlide = prevSlide;
+                window.nextSlide = nextSlide;
+            }
+        });
+    </script>
+
+<%- include("./partials/mainfooter.ejs") %>
+
+</body>
+</html>
+
