@@ -12,6 +12,7 @@ const passport = require('passport');
 require('../utils/googleAuth');
 
 const productController = require('../controller/user/product');
+const Category = require('../model/categorymodel');
 
 router.get('/',(req,res)=>{
     res.render('user/landing')
@@ -62,11 +63,10 @@ router.post('/signup', auth.isLogin, async (req, res) => {
     const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes
 
     // Create user with OTP
-    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ 
       name: trimmedName,
       email: trimmedEmail, 
-      password: hashedPassword,
+      password: password,
       otp: {
         code: otp,
         expiresAt
@@ -123,9 +123,15 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/home', (req, res) => {
+router.get('/home', async (req, res) => {
   if (!req.session.user) return res.redirect('/login');
-  res.render('user/home', { user: req.session.user });
+  const categories = await Category.find().sort({ name: 1 }); // all categories, sorted by name
+  const recentCategory = await Category.findOne().sort({ _id: -1 }); // most recently added
+  res.render('user/home', {
+    categories,
+    recentCategory,
+    user: req.session.user
+  });
 });
 
 router.get('/logout', (req, res) => {
@@ -389,5 +395,6 @@ router.post('/reset-password', async (req, res) => {
 
 // Product routes
 router.get('/products', productController.getProducts);
+router.get('/products/:id', productController.getProductDetail);
 
 module.exports= router;

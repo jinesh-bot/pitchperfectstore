@@ -14,6 +14,17 @@
             </div>
         </header>
 
+        <!-- Breadcrumbs -->
+        <nav class="px-8 pt-2 pb-4 text-sm text-gray-600" aria-label="Breadcrumb">
+            <ol class="list-reset flex items-center space-x-2">
+                <li><a href="/admin/dashboard" class="hover:underline text-[#1c4529]">Dashboard</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li><a href="/admin/products" class="hover:underline text-[#1c4529]">Products</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li class="text-gray-500">Add Product</li>
+            </ol>
+        </nav>
+
         <!-- Main Content Area -->
         <main class="p-8 bg-[#CAE0BC] min-h-screen">
             <!-- Flash Messages -->
@@ -39,7 +50,7 @@
                             <label class="block text-sm font-medium text-gray-700">Price</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                    <span class="text-gray-500 sm:text-sm">₹</span>
                                 </div>
                                 <input type="number" 
                                        name="price" 
@@ -52,12 +63,10 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Category</label>
-                            <select name="category" 
-                                    required 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+                            <select name="category" required id="categorySelect" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
                                 <option value="">Select Category</option>
-                                <% ['Football Boots', 'Jerseys', 'Footballs', 'Training Gear', 'Track Pants', 'T-Shirts', 'Supplements', 'Accessories'].forEach(category => { %>
-                                    <option value="<%= category %>"><%= category %></option>
+                                <% categories.forEach(category => { %>
+                                    <option value="<%= category.name %>" <%= (typeof product !== 'undefined' && product.category === category.name) ? 'selected' : '' %>><%= category.name %></option>
                                 <% }); %>
                             </select>
                         </div>
@@ -93,6 +102,63 @@
                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]"></textarea>
                     </div>
 
+                    <!-- Variants Section -->
+                    <div id="variantsSection" class="space-y-6">
+                        <h3 class="text-lg font-medium text-gray-900">Product Variants</h3>
+                        <!-- Sizes -->
+                        <div id="sizesVariant">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Sizes</label>
+                            <div id="sizesContainer" class="space-y-2">
+                                <div class="flex items-center space-x-4">
+                                    <input type="text" 
+                                           name="sizes[]" 
+                                           placeholder="Size (e.g., S, M, L, XL)" 
+                                           class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+                                    <input type="number" 
+                                           name="sizeQuantities[]" 
+                                           placeholder="Quantity" 
+                                           min="0" 
+                                           class="w-24 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+                                    <button type="button" 
+                                            onclick="removeSize(this)" 
+                                            class="text-red-600 hover:text-red-800">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" 
+                                    onclick="addSize()" 
+                                    class="mt-2 text-sm text-[#1c4529] hover:text-[#2a603a]">
+                                <i class="fas fa-plus mr-1"></i>Add Size
+                            </button>
+                        </div>
+                        <!-- Colors -->
+                        <div id="colorsVariant">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Colors</label>
+                            <div id="colorsContainer" class="space-y-2">
+                                <div class="flex items-center space-x-4">
+                                    <input type="text" 
+                                           name="colors[]" 
+                                           placeholder="Color name" 
+                                           class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+                                    <input type="color" 
+                                           name="colorCodes[]" 
+                                           class="w-12 h-8 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+                                    <button type="button" 
+                                            onclick="removeColor(this)" 
+                                            class="text-red-600 hover:text-red-800">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" 
+                                    onclick="addColor()" 
+                                    class="mt-2 text-sm text-[#1c4529] hover:text-[#2a603a]">
+                                <i class="fas fa-plus mr-1"></i>Add Color
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Images -->
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="images">
@@ -103,8 +169,12 @@
                                id="images" 
                                multiple 
                                accept="image/jpeg,image/png,image/gif,image/webp"
+                               onchange="previewImages(this)"
                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         <p class="text-sm text-gray-500 mt-1">Accepted formats: JPEG, PNG, GIF, WebP. Max size: 5MB per image</p>
+                        
+                        <!-- Image Preview Container -->
+                        <div id="imagePreviewContainer" class="mt-4 flex flex-wrap gap-4"></div>
                     </div>
 
                     <!-- Options -->
@@ -141,6 +211,7 @@
 </div>
 
 <script>
+// Image Preview Function
 function previewImages(input) {
     const container = document.getElementById('imagePreviewContainer');
     container.innerHTML = '';
@@ -148,6 +219,12 @@ function previewImages(input) {
     if (input.files) {
         Array.from(input.files).forEach(file => {
             if (file.type.startsWith('image/')) {
+                // Check file size (5MB limit)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`File ${file.name} is too large. Maximum size is 5MB.`);
+                    return;
+                }
+
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
@@ -164,6 +241,14 @@ function previewImages(input) {
                     removeButton.onclick = function(e) {
                         e.preventDefault();
                         previewWrapper.remove();
+                        // Create a new FileList without the removed file
+                        const dt = new DataTransfer();
+                        Array.from(input.files).forEach(f => {
+                            if (f !== file) {
+                                dt.items.add(f);
+                            }
+                        });
+                        input.files = dt.files;
                     };
                     
                     previewWrapper.appendChild(preview);
@@ -176,6 +261,83 @@ function previewImages(input) {
         });
     }
 }
+
+// Size Variant Functions
+function addSize() {
+    const container = document.getElementById('sizesContainer');
+    const sizeDiv = document.createElement('div');
+    sizeDiv.className = 'flex items-center space-x-4';
+    sizeDiv.innerHTML = `
+        <input type="text" 
+               name="sizes[]" 
+               placeholder="Size (e.g., S, M, L, XL)" 
+               class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+        <input type="number" 
+               name="sizeQuantities[]" 
+               placeholder="Quantity" 
+               min="0" 
+               class="w-24 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+        <button type="button" 
+                onclick="removeSize(this)" 
+                class="text-red-600 hover:text-red-800">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    container.appendChild(sizeDiv);
+}
+
+function removeSize(button) {
+    button.parentElement.remove();
+}
+
+// Color Variant Functions
+function addColor() {
+    const container = document.getElementById('colorsContainer');
+    const colorDiv = document.createElement('div');
+    colorDiv.className = 'flex items-center space-x-4';
+    colorDiv.innerHTML = `
+        <input type="text" 
+               name="colors[]" 
+               placeholder="Color name" 
+               class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+        <input type="color" 
+               name="colorCodes[]" 
+               class="w-12 h-8 rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]">
+        <button type="button" 
+                onclick="removeColor(this)" 
+                class="text-red-600 hover:text-red-800">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    container.appendChild(colorDiv);
+}
+
+function removeColor(button) {
+    button.parentElement.remove();
+}
+
+// Show/hide variant fields based on category
+const categorySelect = document.getElementById('categorySelect');
+const sizesVariant = document.getElementById('sizesVariant');
+const colorsVariant = document.getElementById('colorsVariant');
+
+function updateVariantVisibility() {
+    const cat = categorySelect.value;
+    // Show sizes for Jerseys, T-Shirts, Track Pants
+    if (["Jerseys", "T-Shirts", "Track Pants"].includes(cat)) {
+        sizesVariant.style.display = '';
+    } else {
+        sizesVariant.style.display = 'none';
+    }
+    // Show colors only for T-Shirts
+    if (["T-Shirts"].includes(cat)) {
+        colorsVariant.style.display = '';
+    } else {
+        colorsVariant.style.display = 'none';
+    }
+}
+categorySelect.addEventListener('change', updateVariantVisibility);
+document.addEventListener('DOMContentLoaded', updateVariantVisibility);
 </script>
 
 <%- include('./partials/homeFooter') %>

@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model/usermodel.js');
 const bcrypt = require('bcrypt');
+const Category = require('../model/categorymodel.js');
 
 const adminCustomerController = require('../controller/admin/customerController.js');
 const adminAuth = require("../middlewares/adminAuth.js");
@@ -42,7 +43,25 @@ router.post('/products/edit/:id',
 router.post('/products/delete/:id', adminAuth.checkSession, productController.deleteProduct);
 
 // Category and Customer Routes
-router.get('/categories', adminAuth.checkSession, adminController.getCategories);
+router.get('/categories', adminAuth.checkSession, async (req, res) => {
+  const categories = await Category.find().sort({ name: 1 });
+  res.render('admin/categories', { categories });
+});
+
+router.post('/categories', adminAuth.checkSession, async (req, res) => {
+  try {
+    await Category.create({ name: req.body.name });
+    res.redirect('/admin/categories');
+  } catch (err) {
+    res.render('admin/categories', { categories: await Category.find(), error: 'Category already exists or invalid.' });
+  }
+});
+
+router.post('/categories/delete/:id', adminAuth.checkSession, async (req, res) => {
+  await Category.findByIdAndDelete(req.params.id);
+  res.redirect('/admin/categories');
+});
+
 router.get('/customers', adminAuth.checkSession, adminController.getCustomers);
 router.patch('/toggle-user-status/:id', adminAuth.checkSession, adminCustomerController.toggleUserStatus);
 

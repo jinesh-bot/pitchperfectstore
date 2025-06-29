@@ -1,6 +1,7 @@
 const Product = require('../../model/productmodel');
 const fs = require('fs').promises; // Use promises version
 const path = require('path');
+const Category = require('../../model/categorymodel');
 
 const productController = {
     // Get all products or filtered by category
@@ -14,9 +15,11 @@ const productController = {
             }
 
             const products = await Product.find(query).sort({ createdAt: -1 });
+            const categories = await Category.find().sort({ name: 1 });
             
             res.render('admin/products', { 
                 products,
+                categories,
                 currentCategory: category || 'All Products',
                 message: req.flash('message')
             });
@@ -30,17 +33,7 @@ const productController = {
     // Show add product form
     showAddProduct: async (req, res) => {
         try {
-            const categories = [
-                'Football Boots',
-                'Jerseys',
-                'Footballs',
-                'Training Gear',
-                'Accessories',
-                'Track Pants',
-                'T-Shirts',
-                'Supplements'
-            ];
-            
+            const categories = await Category.find().sort({ name: 1 });
             const brands = ['Nike', 'Adidas', 'Puma', 'Under Armour', 'New Balance', 'Other'];
             
             res.render('admin/add-product', {
@@ -66,13 +59,32 @@ const productController = {
                 brand,
                 stock,
                 isNewArrival,
-                isFeatured
+                isFeatured,
+                sizes,
+                sizeQuantities,
+                colors,
+                colorCodes
             } = req.body;
 
             // Handle image uploads
             const images = Array.isArray(req.files) 
                 ? req.files.map(file => `/uploads/products/${file.filename}`)
                 : [];
+
+            // Process sizes
+            const processedSizes = sizes ? sizes.map((size, index) => ({
+                size,
+                quantity: parseInt(sizeQuantities[index]) || 0,
+                available: parseInt(sizeQuantities[index]) > 0
+            })) : [];
+
+            // Process colors
+            const processedColors = colors ? colors.map((color, index) => ({
+                color,
+                colorCode: colorCodes[index] || '#000000',
+                available: true,
+                images: [] // You can add color-specific images later if needed
+            })) : [];
 
             const product = new Product({
                 name,
@@ -83,7 +95,9 @@ const productController = {
                 images,
                 stock: parseInt(stock),
                 isNewArrival: isNewArrival === 'on',
-                isFeatured: isFeatured === 'on'
+                isFeatured: isFeatured === 'on',
+                sizes: processedSizes,
+                colors: processedColors
             });
 
             await product.save();
@@ -109,20 +123,8 @@ const productController = {
             if (!product) {
                 return res.status(404).send('Product not found');
             }
-
-            const categories = [
-                'Football Boots',
-                'Jerseys',
-                'Footballs',
-                'Training Gear',
-                'Accessories',
-                'Track Pants',
-                'T-Shirts',
-                'Supplements'
-            ];
-            
+            const categories = await Category.find().sort({ name: 1 });
             const brands = ['Nike', 'Adidas', 'Puma', 'Under Armour', 'New Balance', 'Other'];
-
             res.render('admin/edit-product', {
                 product,
                 categories,

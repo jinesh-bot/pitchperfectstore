@@ -1,5 +1,6 @@
 const express = require('express');
 const Product = require('../../model/productmodel');
+const Category = require('../../model/categorymodel');
 
 const productController = {
     getProducts: async (req, res) => {
@@ -61,7 +62,7 @@ const productController = {
             }
 
             // Get all categories for sidebar
-            const categories = await Product.distinct('category');
+            const categories = await Category.find().sort({ name: 1 });
             const brands = await Product.distinct('brand');
 
             res.render('user/products', {
@@ -76,6 +77,22 @@ const productController = {
                 currentSort: sort || 'newest'
             });
 
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
+    },
+
+    getProductDetail: async (req, res) => {
+        try {
+            const product = await Product.findById(req.params.id);
+            if (!product) {
+                return res.status(404).render('user/404', { message: 'Product not found' });
+            }
+            res.render('user/product-detail', { 
+                product,
+                user: req.session.user || null
+            });
         } catch (error) {
             console.error(error);
             res.status(500).send('Server Error');

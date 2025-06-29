@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         required: [true, 'Product category is required'],
-        enum: ['Football Boots', 'Jerseys', 'Footballs', 'Training Gear', 'Accessories', 'Track Pants', 'T-Shirts', 'Supplements']
+        enum: ['Football Boots', 'Jerseys', 'Footballs', 'Rehab Equipment', 'Accessories', 'Track Pants', 'T-Shirts', 'Supplements']
     },
     brand: {
         type: String,
@@ -152,7 +152,7 @@ productSchema.methods.getSalePrice = function() {
 
 // Virtual for formatted price
 productSchema.virtual('formattedPrice').get(function() {
-    return `$${this.price.toFixed(2)}`;
+    return `₹${this.price.toFixed(2)}`;
 });
 
 // Index for better search performance

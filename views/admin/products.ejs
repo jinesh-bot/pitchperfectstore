@@ -32,14 +32,9 @@
                                 class="rounded-md border-gray-300 shadow-sm focus:border-[#1c4529] focus:ring-[#1c4529]"
                                 onchange="this.form.submit()">
                             <option value="">All Categories</option>
-                            <option value="Football Boots" <%= currentCategory === 'Football Boots' ? 'selected' : '' %>>Football Boots</option>
-                            <option value="Jerseys" <%= currentCategory === 'Jerseys' ? 'selected' : '' %>>Jerseys</option>
-                            <option value="Footballs" <%= currentCategory === 'Footballs' ? 'selected' : '' %>>Footballs</option>
-                            <option value="Training Gear" <%= currentCategory === 'Training Gear' ? 'selected' : '' %>>Training Gear</option>
-                            <option value="Track Pants" <%= currentCategory === 'Track Pants' ? 'selected' : '' %>>Track Pants</option>
-                            <option value="T-Shirts" <%= currentCategory === 'T-Shirts' ? 'selected' : '' %>>T-Shirts</option>
-                            <option value="Supplements" <%= currentCategory === 'Supplements' ? 'selected' : '' %>>Supplements</option>
-                            <option value="Accessories" <%= currentCategory === 'Accessories' ? 'selected' : '' %>>Accessories</option>
+                            <% categories.forEach(cat => { %>
+                                <option value="<%= cat.name %>" <%= currentCategory === cat.name ? 'selected' : '' %>><%= cat.name %></option>
+                            <% }); %>
                         </select>
                     </form>
                 </div>
@@ -67,7 +62,7 @@
                                         </td>
                                         <td class="py-3 px-4"><%= product.name %></td>
                                         <td class="py-3 px-4"><%= product.category %></td>
-                                        <td class="py-3 px-4">$<%= product.price %></td>
+                                        <td class="py-3 px-4">₹<%= product.price %></td>
                                         <td class="py-3 px-4"><%= product.stock %></td>
                                         <td class="py-3 px-4">
                                             <span class="px-2 py-1 rounded-full text-sm font-semibold 

@@ -1,0 +1,35 @@
+<%- include('./partials/homeHeader') %>
+<div class="flex pt-20">
+  <%- include('./partials/homeSidebar') %>
+  <div class="flex-1 ml-64 p-8">
+    <h2 class="text-2xl font-bold mb-6">Manage Categories</h2>
+    <% if (typeof error !== 'undefined') { %>
+      <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4"><%= error %></div>
+    <% } %>
+    <form action="/admin/categories" method="POST" class="mb-6 flex space-x-4">
+      <input type="text" name="name" placeholder="New Category" required class="border px-3 py-2 rounded" />
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Add Category</button>
+    </form>
+    <table class="min-w-full bg-white rounded shadow">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 text-left">Category Name</th>
+          <th class="py-2 px-4 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% categories.forEach(cat => { %>
+          <tr>
+            <td class="py-2 px-4"><%= cat.name %></td>
+            <td class="py-2 px-4">
+              <form action="/admin/categories/delete/<%= cat._id %>" method="POST" style="display:inline;">
+                <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Delete this category?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include('./partials/homeFooter') %> 
