@@ -13,6 +13,8 @@ const userRoutes = require("./route/user");
 const adminRoutes = require("./route/admin");
 const nocache = require('nocache');
 
+require('./utils/googleAuth'); // <-- This must come BEFORE your routes
+
 // Connect to DB
 connectdb();
 

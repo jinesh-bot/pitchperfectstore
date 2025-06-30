@@ -58,3 +58,7 @@ passport.deserializeUser(async (id, done) => {
         done(error, null);
     }
 });
+
+const app = require('express')();
+app.use(passport.initialize());
+app.use(passport.session());
